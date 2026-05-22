@@ -1,9 +1,10 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>Hello world!</h1>
-    </div>
+    <main className="flex flex-1 flex-col items-center justify-center px-(--size-screen-margin)">
+      <h1 className="text-display text-brand-green">Wash World</h1>
+      <p className="mt-4 text-body text-text-secondary">
+        Your car wash booking app
+      </p>
+    </main>
   );
 }
