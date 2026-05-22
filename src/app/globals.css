@@ -110,11 +110,38 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+  button {
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  small {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
 }
 
-@layer utilities {
-  /* WashWorld typography ramps — Gilroy ExtraBold (800) + Light (300) only.
-     Body uses Light as a Medium substitute; Caption uses ExtraBold as a SemiBold substitute. */
+/* @layer utilities {
   .text-display {
     font-size: 64px;
     font-weight: 800;
@@ -149,4 +176,4 @@
     text-transform: uppercase;
     line-height: 1.2;
   }
-}
+} */

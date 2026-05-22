@@ -21,7 +21,7 @@ export function Input({
       value={value}
       onChange={onChange}
       required
-      className="h-12.5 w-full rounded-button bg-white text-body text-white px-2 placeholder:text-text-muted" 
+      className="h-12.5 w-full rounded-button bg-white text-[14px] font-light leading-[1.4] text-white px-2 placeholder:text-text-muted"
     />
   )
 }

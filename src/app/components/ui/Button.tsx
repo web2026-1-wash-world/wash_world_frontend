@@ -22,7 +22,7 @@ export function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`h-12.5 w-full rounded-button text-button font-extrabold ${variantStyles[variant]}`}
+      className={`h-12.5 w-full rounded-button ${variantStyles[variant]}`}
     >
       {children}
     </button>
