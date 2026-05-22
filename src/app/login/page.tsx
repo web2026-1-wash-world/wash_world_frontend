@@ -22,30 +22,32 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-[var(--card)] px-6 pt-30 pb-30">
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                <h1 className="typography-h1 text-center mb-5">Login</h1>
+    <div>
+        <div className="bg-[var(--card)] min-h-screen px-6 flex items-start justify-center pt-15 mt-60 rounded-t-[36px]">
+            <form className="flex flex-col gap-4 w-full">
+                <h1 className="text-center mb-5">Login</h1>
+
                 <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                name="password"
+                placeholder="Adgangskode"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 />
-        <Button
-            type="submit"
-        >
-            Login
-        </Button>
-        </form>
+
+                <Button type="submit">
+                Login
+                </Button>
+            </form>
+        </div>
     </div>
   )
 }
