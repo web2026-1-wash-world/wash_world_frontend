@@ -3,14 +3,12 @@
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { MiniCard } from "../../components/cards/MiniCard";
-
+import { Checkbox } from "@/app/components/ui/Checkbox";
 
 import { useState } from "react";
 
-
 function TestPage() {
   const [firstName, setFirstName] = useState("");
-
 
   return (
     <div className="w-98.25">
@@ -37,15 +35,14 @@ function TestPage() {
       </div>
       <div className="py-5 flex justify-between">
         <MiniCard
-        caption="Nærmeste vaskehal"
-        value="1.2 km"
-        subtitle="Lyngby · Åben"
+          caption="Nærmeste vaskehal"
+          value="1.2 km"
+          subtitle="Lyngby · Åben"
         />
-        <MiniCard
-        caption="Venteitd"
-        value="0 min"
-        subtitle="Estimeret"
-        />
+        <MiniCard caption="Venteitd" value="0 min" subtitle="Estimeret" />
+      </div>
+      <div className="py-5">
+        <Checkbox name="remember_me" label="Husk mig" />
       </div>
     </div>
   );
