@@ -7,7 +7,7 @@ type ButtonProps = {
 
 const variantStyles = {
   primary: "bg-brand-green text-white",
-  secondary: "bg-bg-card text-text-secondary",
+  secondary: "bg-surface text-text-secondary",
   danger: "bg-danger-red text-white",
   outline: "border-2 border-brand-green bg-transparent text-brand-green",
 }
@@ -22,7 +22,7 @@ export function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`h-12.5 w-full rounded-button ${variantStyles[variant]}`}
+      className={`h-12.5 w-full rounded-button font-extrabold ${variantStyles[variant]}`}
     >
       {children}
     </button>

@@ -6,6 +6,7 @@ import { MiniCard } from "../../components/cards/MiniCard";
 import { Checkbox } from "@/app/components/ui/Checkbox";
 
 import { useState } from "react";
+import { HistoryCard } from "@/app/components/cards/HistoryCard";
 
 function TestPage() {
   const [firstName, setFirstName] = useState("");
@@ -43,6 +44,9 @@ function TestPage() {
       </div>
       <div className="py-5">
         <Checkbox name="remember_me" label="Husk mig" />
+      </div>
+      <div className="py-5">
+        <HistoryCard left="Herlev - I dag" right="Premium Plus" />
       </div>
     </div>
   );
