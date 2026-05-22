@@ -1,63 +1,51 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useLogin } from "../hooks/useAuth";
+import { useState } from "react"
+import { useLogin } from "../hooks/useAuth"
+
+import { Input } from "@/app/components/ui/Input"
+import { Button } from "@/app/components/ui/Button"
 
 export default function LoginPage() {
-    const login = useLogin();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const login = useLogin()
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        login.mutate({ email, password });
-    };
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    return (
-        <div className="flex flex-1 items-center justify-center p-8">
-            <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-4 w-full max-w-sm"
-            >
-                <h1 className="text-2xl font-bold">Login</h1>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
 
-                {login.isSuccess && (
-                    <p className="text-green-600">
-                        Welcome, {login.data.user.user_first_name}!
-                    </p>
-                )}
-                {login.isError && (
-                    <p className="text-red-600">{login.error.error}</p>
-                )}
+    login.mutate({
+      email,
+      password,
+    })
+  }
 
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+  return (
+    <div className="bg-[var(--card)] px-6 pt-30 pb-30">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                <h1 className="typography-h1 text-center mb-5">Login</h1>
+                <Input
                     type="email"
+                    name="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                 />
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+
+                <Input
                     type="password"
+                    name="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                 />
-                <button
-                    type="submit"
-                    disabled={login.isPending}
-                    className="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 disabled:opacity-50"
-                >
-                    {login.isPending ? "Logging in..." : "Login"}
-                </button>
-
-                <a className="text-sm text-blue-600 hover:underline" href="http://127.0.0.1/forgot-password">
-                    Forgot password?
-                </a>
-            </form>
-        </div>
-    );
+        <Button
+            type="submit"
+        >
+            Login
+        </Button>
+        </form>
+    </div>
+  )
 }
