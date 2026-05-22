@@ -2,7 +2,7 @@
 
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { Card } from "../../components/ui/Card";
+import { MiniCard } from "../../components/cards/MiniCard";
 
 
 import { useState } from "react";
@@ -11,8 +11,9 @@ import { useState } from "react";
 function TestPage() {
   const [firstName, setFirstName] = useState("");
 
+
   return (
-    <div>
+    <div className="w-98.25">
       <div className="py-10">
         <h1 className="text-display">Components</h1>
       </div>
@@ -34,8 +35,17 @@ function TestPage() {
           onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
-      <div className="py-5">
-        <Card />
+      <div className="py-5 flex justify-between">
+        <MiniCard
+        caption="Nærmeste vaskehal"
+        value="1.2 km"
+        subtitle="Lyngby · Åben"
+        />
+        <MiniCard
+        caption="Venteitd"
+        value="0 min"
+        subtitle="Estimeret"
+        />
       </div>
     </div>
   );
