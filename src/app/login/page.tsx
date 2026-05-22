@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useLogin } from "../hooks/useAuth";
-import 
 
 export default function LoginPage() {
     const login = useLogin();
