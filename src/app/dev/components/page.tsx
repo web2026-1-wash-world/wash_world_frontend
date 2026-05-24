@@ -7,6 +7,7 @@ import { Checkbox } from "@/app/components/ui/Checkbox";
 
 import { useState } from "react";
 import { HistoryCard } from "@/app/components/cards/HistoryCard";
+import { XPCard } from "@/app/components/cards/XPCard";
 
 function TestPage() {
   const [firstName, setFirstName] = useState("");
@@ -47,6 +48,14 @@ function TestPage() {
       </div>
       <div className="py-5">
         <HistoryCard left="Herlev - I dag" right="Premium Plus" />
+      </div>
+      <div className="py-5">
+        <XPCard
+          title="Clean Streak"
+          washCount={7}
+          currentXP={65}
+          nextRewardXP={35}
+        />
       </div>
     </div>
   );
