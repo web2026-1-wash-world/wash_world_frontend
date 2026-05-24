@@ -8,13 +8,13 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 type SignUpData = {
     user_first_name: string;
     user_last_name: string;
-    email: string;
-    password: string;
+    user_email: string;
+    user_password: string;
 };
 
 type LoginData = {
-    email: string;
-    password: string;
+    user_email: string;
+    user_password: string;
 };
 
 export function useSignUp() {
@@ -33,9 +33,9 @@ export function useSignUp() {
 }
 
 export function useLogin() {
-    return useMutation<{ message: string; user: User }, { error: string }, LoginData>({
+    return useMutation<{ message: string; access_token: string, user: User }, { error: string }, LoginData>({
         mutationFn: async (data: LoginData) => {
-            const response = await fetch(baseUrl + "login", {
+            const response = await fetch(baseUrl + "/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),

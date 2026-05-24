@@ -12,7 +12,7 @@ export default function SignUpPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        signUp.mutate({ user_first_name: firstName, user_last_name: lastName, email, password });
+        signUp.mutate({ user_first_name: firstName, user_last_name: lastName, user_email: email, user_password: password });
     };
 
     return (
