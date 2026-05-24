@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useLogin } from "../hooks/useAuth";
-import 
 
 export default function LoginPage() {
     const login = useLogin();
@@ -60,5 +59,5 @@ export default function LoginPage() {
                 </a>
             </form>
         </div>
-    );
+    )
 }

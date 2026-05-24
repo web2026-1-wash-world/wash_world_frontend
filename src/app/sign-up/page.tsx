@@ -6,12 +6,13 @@ import { useSignUp } from "../hooks/useAuth";
 export default function SignUpPage() {
     const signUp = useSignUp();
     const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        signUp.mutate({ user_first_name: firstName, email, password });
+        signUp.mutate({ user_first_name: firstName, user_last_name: lastName, email, password });
     };
 
     return (
@@ -35,6 +36,14 @@ export default function SignUpPage() {
                     placeholder="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    required
+                />
+                <input
+                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+                    type="text"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     required
                 />
                 <input
