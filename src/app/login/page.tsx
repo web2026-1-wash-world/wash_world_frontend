@@ -8,19 +8,14 @@ import { Button } from "@/app/components/ui/Button"
 import { Checkbox } from "../components/ui/Checkbox"
 
 export default function LoginPage() {
-  const login = useLogin()
+    const login = useLogin();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-
-    login.mutate({
-      email,
-      password,
-    })
-  }
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        login.mutate({ user_email: email, user_password: password });
+    };
 
   return (
     <div className="h-screen overflow-hidden bg-black pt-50">
