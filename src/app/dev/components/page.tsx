@@ -14,6 +14,7 @@ import { TopNav } from "@/app/components/ui/TopNav";
 import { BottomNav } from "@/app/components/ui/BottomNav";
 import { HeroCard } from "@/app/components/cards/HeroCard";
 import { TrophyCard } from "@/app/components/cards/TrophyCard";
+import { ListItem } from "@/app/components/ui/ListItem";
 
 function TestPage() {
   const [firstName, setFirstName] = useState("");
@@ -95,6 +96,9 @@ function TestPage() {
       </div>
       <div className="py-5">
         <TrophyCard title="Kom i gang" description="Download Wash World app'en og tilmeld dig"/>
+      </div>
+      <div className="py-5">
+        <ListItem title="Hej" subtitle="med"  />
       </div>
     </div>
   );
