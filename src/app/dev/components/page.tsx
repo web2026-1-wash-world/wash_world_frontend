@@ -8,6 +8,13 @@ import { Checkbox } from "@/app/components/ui/Checkbox";
 import { useState } from "react";
 import { HistoryCard } from "@/app/components/cards/HistoryCard";
 import { XPCard } from "@/app/components/cards/XPCard";
+import { Badge } from "@/app/components/ui/Badge";
+import { Avatar } from "@/app/components/ui/Avatar";
+import { TopNav } from "@/app/components/ui/TopNav";
+import { BottomNav } from "@/app/components/ui/BottomNav";
+import { HeroCard } from "@/app/components/cards/HeroCard";
+import { TrophyCard } from "@/app/components/cards/TrophyCard";
+import { ListItem } from "@/app/components/ui/ListItem";
 
 function TestPage() {
   const [firstName, setFirstName] = useState("");
@@ -56,6 +63,42 @@ function TestPage() {
           currentXP={65}
           nextRewardXP={35}
         />
+      </div>
+      <div className="py-5">
+        <Badge variant="active">Active</Badge>
+        <Badge variant="subtle">Subtle</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="locked">Locked</Badge>
+      </div>
+      <div className="py-5">
+        <Avatar initial="W" />
+      </div>
+      <div className="py-5">
+        <TopNav initial="W" />
+        <TopNav title="Vælg dit abonnement" variant="centered"/>
+      </div>
+      <div className="py-5">
+        <BottomNav />
+      </div>
+      <div className="py-5">
+        <HeroCard
+          eyebrow="Få ubegrænset bilvask"
+          title="Vælg abonnement →"
+          subtitle="Guld · Premium · Brilliant"
+        />
+      </div>
+      <div className="py-5">
+        <HeroCard
+          eyebrow="Ubegrænset bilvask"
+          title="Premium"
+          subtitle="AB 12 345 · Aktiv"
+        />
+      </div>
+      <div className="py-5">
+        <TrophyCard title="Kom i gang" description="Download Wash World app'en og tilmeld dig"/>
+      </div>
+      <div className="py-5">
+        <ListItem title="Hej" subtitle="med"  />
       </div>
     </div>
   );
