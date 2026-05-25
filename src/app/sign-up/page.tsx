@@ -33,6 +33,7 @@ export default function SignUpPage() {
                 <input
                     className="border rounded p-2 bg-white text-black placeholder-zinc-500"
                     type="text"
+                    name="user_first_name"
                     placeholder="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -41,6 +42,7 @@ export default function SignUpPage() {
                 <input
                     className="border rounded p-2 bg-white text-black placeholder-zinc-500"
                     type="text"
+                    name="user_last_name"
                     placeholder="Last name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -49,6 +51,7 @@ export default function SignUpPage() {
                 <input
                     className="border rounded p-2 bg-white text-black placeholder-zinc-500"
                     type="email"
+                    name="user_email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -57,6 +60,7 @@ export default function SignUpPage() {
                 <input
                     className="border rounded p-2 bg-white text-black placeholder-zinc-500"
                     type="password"
+                    name="user_password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
