@@ -18,6 +18,15 @@
   /* Font */
   --font-sans: var(--font-gilroy);
 
+  /* Gradients */
+  --background-image-hero: linear-gradient(
+    60deg,
+    #333333 0%,
+    #333333 72%,
+    #06c167 72%,
+    #06c167 100%
+  );
+
   /* WashWorld radii */
   --radius-badge: 4px;
   --radius-plan: 8px;
@@ -81,3 +90,4 @@
     line-height: 1.2;
   }
 }
+
