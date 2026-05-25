@@ -3,6 +3,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "danger" | "outline"
   type?: "button" | "submit"
   onClick?: () => void
+  disabled?: boolean
 }
 
 const variantStyles = {
@@ -17,11 +18,13 @@ export function Button({
   variant = "primary",
   type = "button",
   onClick,
+  disabled = false,
 }: ButtonProps) {
   return (
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`h-12.5 w-full rounded-button font-extrabold ${variantStyles[variant]}`}
     >
       {children}
