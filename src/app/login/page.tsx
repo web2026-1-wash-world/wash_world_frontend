@@ -1,63 +1,78 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useLogin } from "../hooks/useAuth";
+import { useState } from "react"
+import { useLogin } from "../hooks/useAuth"
+
+import { Input } from "@/app/components/ui/Input"
+import { Button } from "@/app/components/ui/Button"
+import { Checkbox } from "../components/ui/Checkbox"
 
 export default function LoginPage() {
-    const login = useLogin();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const login = useLogin()
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        login.mutate({ user_email: email, user_password: password });
-    };
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    return (
-        <div className="flex flex-1 items-center justify-center p-8">
-            <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-4 w-full max-w-sm"
-            >
-                <h1 className="text-2xl font-bold">Login</h1>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
 
-                {login.isSuccess && (
-                    <p className="text-green-600">
-                        Welcome, {login.data.user.user_first_name}!
-                    </p>
-                )}
-                {login.isError && (
-                    <p className="text-red-600">{login.error.error}</p>
-                )}
+    login.mutate({
+      email,
+      password,
+    })
+  }
 
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+  return (
+    <div className="h-screen overflow-hidden bg-black pt-50">
+        <div className="bg-[var(--card)] h-full px-6 flex items-start justify-center py-15 rounded-t-[36px]">
+            <form className="flex flex-col gap-4 w-full">
+                <h1 className="text-center mb-5">Login</h1>
+
+                <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+
+                <Input
+                type="password"
+                name="password"
+                placeholder="Adgangskode"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 />
-                <button
-                    type="submit"
-                    disabled={login.isPending}
-                    className="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 disabled:opacity-50"
+
+                <div className="flex items-center justify-between">
+                    <Checkbox
+                    name="remember"
+                    label="Husk mig"
+                    />
+
+                    <a
+                    href="/forgot-password"
+                    className="text-sm text-text-secondary underline"
+                    >Glemt password?
+                    </a>
+                </div>
+
+                <Button type="submit">
+                Login
+                </Button>
+
+                <p className="text-center text-sm text-text-secondary mt-4">
+                Har du ikke en profil?{" "}
+                
+                <a
+                    href="/sign-up"
+                    className="font-bold text-text-secondary"
                 >
-                    {login.isPending ? "Logging in..." : "Login"}
-                </button>
-
-                <a className="text-sm text-blue-600 hover:underline" href="http://127.0.0.1/forgot-password">
-                    Forgot password?
+                    Opret bruger
                 </a>
+                </p>
             </form>
         </div>
-    )
+    </div>
+  )
 }
