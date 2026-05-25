@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   return (
     <div className="h-screen overflow-hidden bg-black pt-50">
-        <div className="bg-[var(--card)] h-full px-6 flex items-start justify-center py-15 rounded-t-[36px]">
+        <div className="bg-surface h-full px-6 flex items-start justify-center py-15 rounded-t-nav">
             <form className="flex flex-col gap-4 w-full">
                 <h1 className="text-center mb-5">Login</h1>
 
