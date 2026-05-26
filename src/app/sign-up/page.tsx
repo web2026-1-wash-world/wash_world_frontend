@@ -34,12 +34,12 @@ export default function SignUpPage() {
             >
                 <h1 className="text-center">OPRET PROFIL</h1>
 
-                {signUp.isSuccess && (
+                {signUp.isSuccess ? (
                     <p className="text-green-600">{signUp.data.message}</p>
-                )}
-                {signUp.isError && (
+                ) : ""}
+                {signUp.isError ? (
                     <p className="text-red-600">{signUp.error.error}</p>
-                )}
+                ) : ""}
 
                 <Input
                     type="text"

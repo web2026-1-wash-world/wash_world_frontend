@@ -23,6 +23,9 @@ export default function LoginPage() {
             <form className="flex flex-col gap-4 w-full">
                 <h1 className="text-center mb-5">Login</h1>
 
+                {login.isSuccess ? (<p className="text-green-600">{login.data.message}</p>) : ""}
+                {login.isError ? (<p className="text-red-600">{login.error.error}</p>) : ""}
+
                 <Input
                 type="email"
                 name="email"

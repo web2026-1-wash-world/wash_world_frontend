@@ -40,7 +40,12 @@ export default function ResetPassword() {
             >
                 <h1 className="text-center mb-5">GLEMT ADGANGSKODE</h1>
                 <p>Indtast din email for at modtage et link til at nulstille din adgangskode</p>
-
+                {resetPassword.isError ? (
+                    <p className="text-red-600">{resetPassword.error.error}</p>
+                ) : ""}
+                {resetPassword.isSuccess ? (
+                    <p className="text-green-600">{resetPassword.data.message}</p>
+                ) : ""}
                 <Input
                 type="password"
                 name="user_password"

@@ -24,6 +24,13 @@ export default function LoginPage() {
             >
                 <h1 className="text-center mb-5">GLEMT ADGANGSKODE</h1>
                 <p>Indtast din email for at modtage et link til at nulstille din adgangskode</p>
+                
+                {forgotPassword.isError ? (
+                    <p className="text-red-600">{forgotPassword.error.error}</p>
+                ) : ""}
+                {forgotPassword.isSuccess ? (
+                    <p className="text-green-600">{forgotPassword.data.message}</p>
+                ) : ""}
 
                 <Input
                 type="email"
