@@ -22,7 +22,7 @@ export default function SignUpPage() {
     return (
         <div className="flex flex-1 items-center justify-center p-8 flex-col">
             <Image
-                src="/images/WashWorld-logo.png"
+                src="/images/WashWorld-logo.svg"
                 width={200}
                 height={200}
                 alt="Wash World Logo"
