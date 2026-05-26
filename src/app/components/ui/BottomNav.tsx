@@ -15,7 +15,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky bottom-5 mx-5 flex h-(--size-bottom-nav) items-center justify-around rounded-nav bg-surface px-2">
+    <nav className="fixed bottom-5 left-5 right-5 flex h-(--size-bottom-nav) items-center justify-around rounded-nav bg-surface px-2">
       {tabs.map(({ href, label, Icon }) => {
         const isActive = pathname === href
         return (
@@ -23,7 +23,7 @@ export function BottomNav() {
             key={href}
             href={href}
             className={`flex flex-col items-center justify-center gap-1 rounded-pill px-4 py-2 ${
-              isActive ? "bg-brand-green text-page" : "text-text-secondary"
+              isActive ? "bg-brand-green text-white" : "text-text-secondary"
             }`}
           >
             <Icon className="size-5" />
