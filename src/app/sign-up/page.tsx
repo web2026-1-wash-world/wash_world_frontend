@@ -22,10 +22,11 @@ export default function SignUpPage() {
     return (
         <div className="flex flex-1 items-center justify-center p-8 flex-col">
             <Image
-                src="/images/WashWorld-logo.png"
+                src="/images/WashWorld-Logo.svg"
                 width={200}
                 height={200}
                 alt="Wash World Logo"
+                className="my-8"
             />
             <form
                 onSubmit={handleSubmit}
