@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useSignUp } from "../hooks/useAuth";
 
+import { Input } from "@/app/components/ui/Input"
+import { Button } from "@/app/components/ui/Button"
+import Image from 'next/image'
+
 export default function SignUpPage() {
     const signUp = useSignUp();
     const [firstName, setFirstName] = useState("");
@@ -16,12 +20,18 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="flex flex-1 items-center justify-center p-8">
+        <div className="flex flex-1 items-center justify-center p-8 flex-col">
+            <Image
+                src="/images/WashWorld-logo.png"
+                width={200}
+                height={200}
+                alt="Wash World Logo"
+            />
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-4 w-full max-w-sm"
+                className="flex flex-col gap-5 w-full max-w-sm "
             >
-                <h1 className="text-2xl font-bold">Sign Up</h1>
+                <h1 className="text-center">OPRET PROFIL</h1>
 
                 {signUp.isSuccess && (
                     <p className="text-green-600">{signUp.data.message}</p>
@@ -30,49 +40,34 @@ export default function SignUpPage() {
                     <p className="text-red-600">{signUp.error.error}</p>
                 )}
 
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+                <Input
                     type="text"
-                    name="user_first_name"
-                    placeholder="First name"
+                    placeholder="Fornavn"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    required
                 />
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+                <Input
                     type="text"
-                    name="user_last_name"
-                    placeholder="Last name"
+                    placeholder="Efternavn"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    required
                 />
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+                <Input
                     type="email"
-                    name="user_email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                 />
-                <input
-                    className="border rounded p-2 bg-white text-black placeholder-zinc-500"
+                <Input
                     type="password"
-                    name="user_password"
-                    placeholder="Password"
+                    placeholder="Adgangskode"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                 />
-                <button
-                    type="submit"
-                    disabled={signUp.isPending}
-                    className="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 disabled:opacity-50"
-                >
+                <Button type="submit"
+                    disabled={signUp.isPending}>
                     {signUp.isPending ? "Signing up..." : "Sign Up"}
-                </button>
+                </Button>
             </form>
         </div>
     );
