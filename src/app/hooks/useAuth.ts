@@ -28,7 +28,7 @@ type ResetPasswordData = {
 };
 
 export function useSignUp() {
-    return useMutation<{ message: string }, { error: string }, SignUpData>({
+    return useMutation<{ message: string }, { error: string; field: string }, SignUpData>({
         mutationFn: async (data: SignUpData) => {
             const response = await fetch(baseUrl + "/sign-up", {
                 method: "POST",
@@ -43,7 +43,7 @@ export function useSignUp() {
 }
 
 export function useLogin() {
-    return useMutation<{ message: string; access_token: string, user: User }, { error: string }, LoginData>({
+    return useMutation<{ message: string; access_token: string, user: User }, { error: string; field: string }, LoginData>({
         mutationFn: async (data: LoginData) => {
             const response = await fetch(baseUrl + "/login", {
                 method: "POST",
@@ -58,7 +58,7 @@ export function useLogin() {
 }
 
 export function useForgotPassword() {
-    return useMutation<{ message: string; access_token: string, user: User }, { error: string }, ForgotPasswordData>({
+    return useMutation<{ message: string; access_token: string, user: User }, { error: string; field: string }, ForgotPasswordData>({
         mutationFn: async (data: ForgotPasswordData) => {
             const response = await fetch(baseUrl + "/forgot-password", {
                 method: "POST",
@@ -73,7 +73,7 @@ export function useForgotPassword() {
 }
 
 export function useResetPassword() {
-    return useMutation<{ message: string }, { error: string }, ResetPasswordData>({
+    return useMutation<{ message: string }, { error: string; field: string }, ResetPasswordData>({
         mutationFn: async (data: ResetPasswordData) => {
             const response = await fetch(baseUrl + "/reset-password", {
                 method: "POST",

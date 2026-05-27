@@ -6,6 +6,7 @@ import { useSignUp } from "../hooks/useAuth";
 import { Input } from "@/app/components/ui/Input"
 import { Button } from "@/app/components/ui/Button"
 import Image from 'next/image'
+import { RiErrorWarningFill } from "react-icons/ri";
 
 export default function SignUpPage() {
     const signUp = useSignUp();
@@ -35,36 +36,64 @@ export default function SignUpPage() {
                 <h1 className="text-center">OPRET PROFIL</h1>
 
                 {signUp.isSuccess ? (
-                    <p className="text-green-600">{signUp.data.message}</p>
-                ) : ""}
-                {signUp.isError ? (
-                    <p className="text-red-600">{signUp.error.error}</p>
-                ) : ""}
+                    <div className="flex">
 
+                        <p className="text-green-600">{signUp.data.message}</p>
+                    </div>
+                ) : ""}
                 <Input
                     type="text"
                     placeholder="Fornavn"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                 />
+
+                {signUp.isError && signUp.error.field === "user_first_name" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                    </div>
+                ) : ""}
                 <Input
                     type="text"
                     placeholder="Efternavn"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                 />
+                {signUp.isError && signUp.error.field === "user_last_name" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                    </div>
+                ) : ""}
                 <Input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                {signUp.isError && signUp.error.field === "user_email" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                    </div>
+                ) : ""}
                 <Input
                     type="password"
                     placeholder="Adgangskode"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {signUp.isError && signUp.error.field === "user_password" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                    </div>
+                ) : ""}
                 <Button type="submit"
                     disabled={signUp.isPending}>
                     {signUp.isPending ? "Signing up..." : "Sign Up"}

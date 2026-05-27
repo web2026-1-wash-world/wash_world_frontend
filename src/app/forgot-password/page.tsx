@@ -1,5 +1,7 @@
 "use client"
 
+import { RiErrorWarningFill } from "react-icons/ri";
+
 import { useState } from "react"
 import { useForgotPassword } from "../hooks/useAuth"
 
@@ -25,20 +27,24 @@ export default function LoginPage() {
                 <h1 className="text-center mb-5">GLEMT ADGANGSKODE</h1>
                 <p>Indtast din email for at modtage et link til at nulstille din adgangskode</p>
                 
-                {forgotPassword.isError ? (
-                    <p className="text-red-600">{forgotPassword.error.error}</p>
-                ) : ""}
                 {forgotPassword.isSuccess ? (
                     <p className="text-green-600">{forgotPassword.data.message}</p>
                 ) : ""}
 
                 <Input
                 type="email"
-                name="email"
+                name="user_email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 />
+                {forgotPassword.isError && forgotPassword.error.field === "user_email" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{forgotPassword.error.error}</p>
+                    </div>
+                ) : ""}
 
                 <Button type="submit">
                     Send link

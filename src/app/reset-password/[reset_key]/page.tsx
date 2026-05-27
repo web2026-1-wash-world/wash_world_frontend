@@ -8,6 +8,8 @@ import { Button } from "@/app/components/ui/Button"
 
 import { useResetPassword } from "@/app/hooks/useAuth";
 
+import { RiErrorWarningFill } from "react-icons/ri";
+
 type ResetPasswordParams = {
     reset_key: string;
 };
@@ -40,9 +42,6 @@ export default function ResetPassword() {
             >
                 <h1 className="text-center mb-5">GLEMT ADGANGSKODE</h1>
                 <p>Indtast din email for at modtage et link til at nulstille din adgangskode</p>
-                {resetPassword.isError ? (
-                    <p className="text-red-600">{resetPassword.error.error}</p>
-                ) : ""}
                 {resetPassword.isSuccess ? (
                     <p className="text-green-600">{resetPassword.data.message}</p>
                 ) : ""}
@@ -53,6 +52,13 @@ export default function ResetPassword() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
+                {resetPassword.isError && resetPassword.error.field === "user_password" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{resetPassword.error.error}</p>
+                    </div>
+                ) : ""}
                 <Input
                 type="password"
                 name="confirm_password"
@@ -60,6 +66,13 @@ export default function ResetPassword() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                {resetPassword.isError && resetPassword.error.field === "confirm_password" ? (
+                    <div className="flex items-center gap-2">
+                        <RiErrorWarningFill 
+                        className="fill-red-600"/>
+                        <p className="text-(--color-text-secondary)">{resetPassword.error.error}</p>
+                    </div>
+                ) : ""}
 
                 <Button type="submit">
                     Opdater adgangskode
