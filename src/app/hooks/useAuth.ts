@@ -27,6 +27,13 @@ type ResetPasswordData = {
     reset_key: string;
 };
 
+type DeleteAccountData = {
+    user_first_name: string;
+    user_last_name: string;
+    user_email: string;
+    user_password: string;
+};
+
 export function useSignUp() {
     return useMutation<{ message: string }, { error: string; field: string }, SignUpData>({
         mutationFn: async (data: SignUpData) => {
@@ -75,6 +82,24 @@ export function useForgotPassword() {
 export function useResetPassword() {
     return useMutation<{ message: string }, { error: string; field: string }, ResetPasswordData>({
         mutationFn: async (data: ResetPasswordData) => {
+            const response = await fetch(baseUrl + "/reset-password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            const json = await response.json();
+
+            if (!response.ok) throw json;
+
+            return json;
+        },
+    });
+}
+
+export function useDeleteAccount() {
+    return useMutation<{ message: string }, { error: string; field: string }, DeleteAccountData>({
+        mutationFn: async (data: DeleteAccountData) => {
             const response = await fetch(baseUrl + "/reset-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
