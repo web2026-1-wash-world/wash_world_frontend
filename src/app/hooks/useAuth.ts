@@ -50,7 +50,7 @@ export function useSignUp() {
 }
 
 export function useLogin() {
-    return useMutation<{ message: string; access_token: string, user: User }, { error: string; field: string }, LoginData>({
+    return useMutation<{ message: string; access_token: string, user: User }, { error: string; }, LoginData>({
         mutationFn: async (data: LoginData) => {
             const response = await fetch(baseUrl + "/login", {
                 method: "POST",

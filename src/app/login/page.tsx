@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useLogin } from "../hooks/useAuth"
 
 import { Input } from "@/app/components/ui/Input"
@@ -8,13 +9,17 @@ import { Button } from "@/app/components/ui/Button"
 import { Checkbox } from "../components/ui/Checkbox"
 
 export default function LoginPage() {
+    const router = useRouter();
     const login = useLogin();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        login.mutate({ user_email: email, user_password: password });
+        login.mutate({ user_email: email, user_password: password },{onSuccess: (data) => {
+            localStorage.setItem("access_token",data.access_token)
+            router.push("/dashboard")
+        }});
     };
 
   return (
