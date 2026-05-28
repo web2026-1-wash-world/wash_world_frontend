@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { User } from "../../types/user";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
@@ -32,6 +33,15 @@ type DeleteAccountData = {
     user_last_name: string;
     user_email: string;
     user_password: string;
+};
+
+type NearestStationData = {
+  station_pk: string;
+  name: string;
+  adress: string;
+  latitude: number;
+  longitude: number;
+  distance: number;
 };
 
 export function useSignUp() {
@@ -113,4 +123,28 @@ export function useDeleteAccount() {
             return json;
         },
     });
+}
+
+export function useGetNearestLocation() {
+  return useQuery<NearestStationData[], { error: string; field?: string }>({
+    queryKey: ["nearest-location"],
+
+    queryFn: async () => {
+      const token = localStorage.getItem("access_token");
+
+      const response = await fetch(baseUrl + "/stations/nearby", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw json;
+      }
+
+      return json;
+    },
+  });
 }
