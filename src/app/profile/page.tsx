@@ -27,32 +27,41 @@ export default function ProfilePage() {
       <TopNav />
 
       <div className="flex-1 px-5 flex flex-col gap-4 py-4 pb-32">
-        <SectionHeader>Dit abonnement</SectionHeader>
-        <MembershipCard
-          planName="Premium"
-          price="169 kr./md."
-          isActive={true}
-        />
+        <div className="space-y-4">
+          <SectionHeader>Dit abonnement</SectionHeader>
+          <MembershipCard
+            planName="Premium"
+            price="169 kr./md."
+            isActive={true}
+          />
+        </div>
+
         <div className="space-y-4">
           <SectionHeader>Dine biler</SectionHeader>
           <CarsSection />
-          <Button variant="secondary" onClick={() => setShowAddForm((prev) => !prev)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowAddForm((prev) => !prev)}
+          >
             {showAddForm ? "Annuller" : "+ Tilføj bil"}
           </Button>
           {showAddForm && (
             <AddCarForm onSuccess={() => setShowAddForm(false)} />
           )}
         </div>
-        <SectionHeader>Vaske historik</SectionHeader>
-        <HistoryCard left="Herlev · I dag" right="Premium Plus" />
-        <HistoryCard left="Brøndby · 3 dage siden" right="Premium Plus" />
-        <HistoryCard left="Herlev · 1 uge siden" right="Premium Plus" />
-        <div className="flex gap-3">
-          <div className="flex-1">
-            <Button variant="secondary">Rapporter problem</Button>
-          </div>
-          <div className="flex-1">
-            <Button variant="outline">Opgrader vask</Button>
+
+        <div className="space-y-4">
+          <SectionHeader>Vaske historik</SectionHeader>
+          <HistoryCard left="Herlev · I dag" right="Premium Plus" />
+          <HistoryCard left="Brøndby · 3 dage siden" right="Premium Plus" />
+          <HistoryCard left="Herlev · 1 uge siden" right="Premium Plus" />
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <Button variant="secondary">Rapporter problem</Button>
+            </div>
+            <div className="flex-1">
+              <Button variant="outline">Opgrader vask</Button>
+            </div>
           </div>
         </div>
       </div>
