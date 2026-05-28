@@ -1,7 +1,11 @@
 type SectionHeaderProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export function SectionHeader({ children }: SectionHeaderProps) {
-  return <small className="text-text-secondary">{children}</small>
+  return (
+    <div className="mb-1">
+      <small className="text-text-secondary">{children}</small>
+    </div>
+  );
 }

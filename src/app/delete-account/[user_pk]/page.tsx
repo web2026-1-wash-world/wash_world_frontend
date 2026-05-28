@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSignUp } from "../hooks/useAuth";
+import { useDeleteAccount } from "@/app/hooks/useAuth";
 
 import { Input } from "@/app/components/ui/Input"
 import { Button } from "@/app/components/ui/Button"
@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { RiErrorWarningFill } from "react-icons/ri";
 
 export default function SignUpPage() {
-    const signUp = useSignUp();
+    const deleteAccount = useDeleteAccount();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function SignUpPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        signUp.mutate({ user_first_name: firstName, user_last_name: lastName, user_email: email, user_password: password });
+        deleteAccount.mutate({ user_first_name: firstName, user_last_name: lastName, user_email: email, user_password: password });
     };
 
     return (
@@ -35,10 +35,10 @@ export default function SignUpPage() {
             >
                 <h1 className="text-center">OPRET PROFIL</h1>
 
-                {signUp.isSuccess ? (
+                {deleteAccount.isSuccess ? (
                     <div className="flex">
 
-                        <p className="text-green-600">{signUp.data.message}</p>
+                        <p className="text-green-600">{deleteAccount.data.message}</p>
                     </div>
                 ) : ""}
                 <Input
@@ -48,11 +48,11 @@ export default function SignUpPage() {
                     onChange={(e) => setFirstName(e.target.value)}
                 />
 
-                {signUp.isError && signUp.error.field === "user_first_name" ? (
+                {deleteAccount.isError && deleteAccount.error.field === "user_first_name" ? (
                     <div className="flex items-center gap-2">
                         <RiErrorWarningFill 
                         className="fill-red-600"/>
-                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                        <p className="text-(--color-text-secondary)">{deleteAccount.error.error}</p>
                     </div>
                 ) : ""}
                 <Input
@@ -61,11 +61,11 @@ export default function SignUpPage() {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                 />
-                {signUp.isError && signUp.error.field === "user_last_name" ? (
+                {deleteAccount.isError && deleteAccount.error.field === "user_last_name" ? (
                     <div className="flex items-center gap-2">
                         <RiErrorWarningFill 
                         className="fill-red-600"/>
-                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                        <p className="text-(--color-text-secondary)">{deleteAccount.error.error}</p>
                     </div>
                 ) : ""}
                 <Input
@@ -74,11 +74,11 @@ export default function SignUpPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                {signUp.isError && signUp.error.field === "user_email" ? (
+                {deleteAccount.isError && deleteAccount.error.field === "user_email" ? (
                     <div className="flex items-center gap-2">
                         <RiErrorWarningFill 
                         className="fill-red-600"/>
-                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                        <p className="text-(--color-text-secondary)">{deleteAccount.error.error}</p>
                     </div>
                 ) : ""}
                 <Input
@@ -87,16 +87,16 @@ export default function SignUpPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {signUp.isError && signUp.error.field === "user_password" ? (
+                {deleteAccount.isError && deleteAccount.error.field === "user_password" ? (
                     <div className="flex items-center gap-2">
                         <RiErrorWarningFill 
                         className="fill-red-600"/>
-                        <p className="text-(--color-text-secondary)">{signUp.error.error}</p>
+                        <p className="text-(--color-text-secondary)">{deleteAccount.error.error}</p>
                     </div>
                 ) : ""}
                 <Button type="submit"
-                    disabled={signUp.isPending}>
-                    {signUp.isPending ? "Signing up..." : "Sign Up"}
+                    disabled={deleteAccount.isPending}>
+                    {deleteAccount.isPending ? "Signing up..." : "Sign Up"}
                 </Button>
             </form>
         </div>
