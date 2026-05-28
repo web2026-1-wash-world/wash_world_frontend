@@ -54,7 +54,9 @@ export function useLogin() {
         mutationFn: async (data: LoginData) => {
             const response = await fetch(baseUrl + "/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json", 
+                    },
                 body: JSON.stringify(data),
             });
             const json = await response.json();

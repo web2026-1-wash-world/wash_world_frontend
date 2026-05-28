@@ -17,7 +17,8 @@ export default function LoginPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         login.mutate({ user_email: email, user_password: password },{onSuccess: (data) => {
-            localStorage.setItem("access_token",data.access_token)
+            localStorage.setItem("access_token", data.access_token)
+            localStorage.setItem("user", JSON.stringify(data.user))
             router.push("/dashboard")
         }}
     );

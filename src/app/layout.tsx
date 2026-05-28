@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${gilroy.variable} h-full`}>
       <body className="min-h-full bg-page text-text-white">
-        <div className="mx-auto flex min-h-screen w-full max-w-[390px] flex-col">
+        <div className="mx-auto flex min-h-screen w-full max-w-97.5 flex-col">
           <QueryProvider>{children}</QueryProvider>
         </div>
       </body>

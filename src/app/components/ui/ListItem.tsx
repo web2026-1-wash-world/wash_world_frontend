@@ -13,7 +13,7 @@ const statusColors = {
 
 export function ListItem({ title, subtitle, status = "open", trailing }: ListItemProps) {
   return (
-    <div className="flex h-(--size-list-item) items-center gap-3 rounded-card bg-surface px-3">
+    <div className="flex h-(--size-list-item)  items-center gap-3 rounded-card bg-surface px-5">
       <span className={`size-2 shrink-0 rounded-full ${statusColors[status]}`} />
       <div className="flex min-w-0 flex-1 flex-col">
         <p className="truncate text-text-white">{title}</p>
