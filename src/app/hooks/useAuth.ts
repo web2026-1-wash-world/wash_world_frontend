@@ -34,6 +34,14 @@ type DeleteAccountData = {
     user_password: string;
 };
 
+type SubscribeData = {
+    membership_id: number;
+};
+
+type ChangeMembershipData = {
+    membership_id: number;
+};
+
 export function useSignUp() {
     return useMutation<{ message: string }, { error: string; field: string }, SignUpData>({
         mutationFn: async (data: SignUpData) => {
@@ -114,5 +122,23 @@ export function useDeleteAccount() {
 
             return json;
         },
+    });
+}
+
+export function useSubscribe(access_token: string) {
+    return useMutation<{ message: string }, { error: string; field: string }, SubscribeData>({
+        mutationFn: async (data: SubscribeData) => {
+            const response = await fetch(baseUrl + "/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: JSON.stringify(data),
+            });
+            const json = await response.json();
+            if (!response.ok) throw json;
+            return json;
+        }
     });
 }
