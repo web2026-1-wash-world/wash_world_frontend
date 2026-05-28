@@ -19,13 +19,16 @@ export default function LoginPage() {
         login.mutate({ user_email: email, user_password: password },{onSuccess: (data) => {
             localStorage.setItem("access_token",data.access_token)
             router.push("/dashboard")
-        }});
-    };
+        }}
+    );
+};
 
   return (
     <div className="h-screen overflow-hidden bg-black pt-50">
         <div className="bg-surface h-full px-6 flex items-start justify-center py-15 rounded-t-nav">
-            <form className="flex flex-col gap-4 w-full">
+            <form className="flex flex-col gap-4 w-full"
+            onSubmit={handleSubmit}
+            >
                 <h1 className="text-center mb-5">Login</h1>
 
                 {login.isSuccess ? (<p className="text-green-600">{login.data.message}</p>) : ""}
