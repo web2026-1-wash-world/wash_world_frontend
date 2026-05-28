@@ -3,6 +3,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "../../types/user";
+import { resolve } from "path";
+import { rejects } from "assert";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
@@ -130,9 +132,18 @@ export function useGetNearestLocation() {
     queryKey: ["nearest-location"],
 
     queryFn: async () => {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token")
 
-      const response = await fetch(baseUrl + "/stations/nearby", {
+      const position = await new Promise<GeolocationPosition>(
+        (resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        }
+      );
+
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const response = await fetch(baseUrl + `/stations/nearby?lat=${lat}&lon=${lon}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

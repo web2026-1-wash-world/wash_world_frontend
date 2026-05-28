@@ -27,7 +27,7 @@ export default function SignUpPage() {
                 width={200}
                 height={200}
                 alt="Wash World Logo"
-                className="my-8"
+                className="my-10"
             />
             <form
                 onSubmit={handleSubmit}

@@ -25,7 +25,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`h-12.5 w-full rounded-button font-extrabold ${variantStyles[variant]}`}
+      className={`h-12.5 w-full rounded-button font-extrabold cursor-pointer ${variantStyles[variant]}`}
     >
       {children}
     </button>
