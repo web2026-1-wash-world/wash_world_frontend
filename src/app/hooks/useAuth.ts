@@ -37,6 +37,7 @@ type DeleteAccountData = {
     user_password: string;
 };
 
+<<<<<<< HEAD
 type NearestStationData = {
   station_pk: string;
   name: string;
@@ -46,6 +47,8 @@ type NearestStationData = {
   distance: number;
 };
 
+=======
+>>>>>>> origin/olivers-branch
 export function useSignUp() {
     return useMutation<{ message: string }, { error: string; field: string }, SignUpData>({
         mutationFn: async (data: SignUpData) => {
@@ -128,6 +131,7 @@ export function useDeleteAccount() {
         },
     });
 }
+<<<<<<< HEAD
 
 export function useGetNearestLocation() {
   return useQuery<NearestStationData[], { error: string; field?: string }>({
@@ -161,3 +165,5 @@ export function useGetNearestLocation() {
     },
   });
 }
+=======
+>>>>>>> origin/olivers-branch
