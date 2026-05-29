@@ -1,6 +1,6 @@
 type ButtonProps = {
   children: React.ReactNode
-  variant?: "primary" | "secondary" | "danger" | "outline" | "disabled"
+  variant?: "primary" | "secondary" | "danger" | "outline" | "disabled" | "informative"
   type?: "button" | "submit"
   onClick?: () => void
   disabled?: boolean
@@ -11,7 +11,8 @@ const variantStyles = {
   secondary: "bg-surface text-text-secondary",
   danger: "bg-danger-red text-white",
   outline: "border-2 border-brand-green bg-transparent text-brand-green",
-  disabled: "bg-surface text-text-muted opacity-60 cursor-not-allowed"
+  disabled: "bg-surface text-text-muted opacity-60 cursor-not-allowed",
+  informative: "bg-green-dim text-white",
 }
 
 export function Button({
