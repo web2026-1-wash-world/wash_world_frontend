@@ -3,10 +3,12 @@ import { FaStar } from "react-icons/fa";
 
 import { Card } from "../components/ui/Card";
 import { XPCard } from "../components/cards/XPCard";
+import { Button } from "../components/ui/Button"
+import Link from "next/link"
 
 export default function washComplete() {
     return (
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-3">
             <IoCheckmarkCircleSharp
             className="text-6xl fill-(--color-green-on-black)"
             />
@@ -41,6 +43,20 @@ export default function washComplete() {
                 nextRewardXP={30}
             >
             </XPCard>
+            <Link href="/problem"
+            className="w-full">
+            <Button
+            variant="secondary"
+            >
+                Rapporter et problem
+            </Button>
+            </Link>
+            <Link href="/dashboard"
+            className="w-full">
+                <Button>
+                    Færdig
+                </Button>
+            </Link>
         </div>
     )
 }
