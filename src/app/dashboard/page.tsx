@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function pageDashboard() {
   const getLocation = useGetNearestLocation();
   const { data } = getLocation;
-  const intial = localStorage.getItem("user");
+
 
   return (
     <div className="h-screen">
