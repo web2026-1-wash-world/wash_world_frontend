@@ -68,6 +68,9 @@ export default function PlanSelectionPage() {
         });
     }
 
+    const isCurrentPlan =
+    currentMembershipId === selectedMembershipId;
+
     return (
         <div className="flex flex-col space-y-4 p-4">
             <div className="mb-8 flex items-center gap-8">
@@ -90,12 +93,18 @@ export default function PlanSelectionPage() {
                 <p className="mt-1 text-text-secondary">Baseret på 1 bil, moderat brug → Premium</p>
             </div>
             <Button
-                variant={selectedMembershipId ? "primary" : "disabled"}
-                onClick={handleActivate}
+                variant={
+                    !selectedMembershipId
+                        ? "disabled"
+                        : isCurrentPlan
+                            ? "informative"
+                            : "primary"
+                }
+                onClick={isCurrentPlan ? undefined : handleActivate}
             >
                 {!selectedMembershipId
                     ? "Vælg et medlemskab for at fortsætte"
-                    : currentMembershipId === selectedMembershipId
+                    : isCurrentPlan
                         ? `Din nuværende plan er ${membershipNames[selectedMembershipId]}`
                         : !currentMembershipId
                             ? `Aktivér ${membershipNames[selectedMembershipId]}`
@@ -110,7 +119,6 @@ export default function PlanSelectionPage() {
                 Afmeld dit abonnement
             </Button>
             )}
-            <BottomNav />
         </div>
     );
 }
