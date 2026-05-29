@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { LuHouse, LuMapPin, LuCarFront, LuUser } from "react-icons/lu"
 
 const tabs = [
-  { href: "/", label: "Hjem", Icon: LuHouse },
+  { href: "/dashboard", label: "Hjem", Icon: LuHouse },
   { href: "/maps", label: "Kort", Icon: LuMapPin },
   { href: "/wash", label: "Vask", Icon: LuCarFront },
   { href: "/profile", label: "Profil", Icon: LuUser },

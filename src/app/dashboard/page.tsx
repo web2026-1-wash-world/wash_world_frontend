@@ -22,7 +22,7 @@ export default function pageDashboard () {
                 initial="W"
             >
             </TopNav>
-            <Link href="/subscription">
+            <Link href="/plan-selection">
                 <HeroCard
                 eyebrow="Få ubegrænset bilvask"
                 title="Vælg abonnement →"
