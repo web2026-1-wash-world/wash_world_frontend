@@ -1,7 +1,10 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { User } from "../../types/user";
+import { resolve } from "path";
+import { rejects } from "assert";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
@@ -34,12 +37,13 @@ type DeleteAccountData = {
     user_password: string;
 };
 
-type SubscribeData = {
-    membership_id: number;
-};
-
-type ChangeMembershipData = {
-    membership_id: number;
+type NearestStationData = {
+  station_pk: string;
+  name: string;
+  adress: string;
+  latitude: number;
+  longitude: number;
+  distance: number;
 };
 
 export function useSignUp() {
@@ -125,20 +129,35 @@ export function useDeleteAccount() {
     });
 }
 
-export function useSubscribe(access_token: string) {
-    return useMutation<{ message: string }, { error: string; field: string }, SubscribeData>({
-        mutationFn: async (data: SubscribeData) => {
-            const response = await fetch(baseUrl + "/subscribe", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${access_token}`,
-                },
-                body: JSON.stringify(data),
-            });
-            const json = await response.json();
-            if (!response.ok) throw json;
-            return json;
+export function useGetNearestLocation() {
+  return useQuery<NearestStationData[], { error: string; field?: string }>({
+    queryKey: ["nearest-location"],
+
+    queryFn: async () => {
+      const token = localStorage.getItem("access_token")
+
+      const position = await new Promise<GeolocationPosition>(
+        (resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
         }
-    });
+      );
+
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const response = await fetch(baseUrl + `/stations/nearby?lat=${lat}&lon=${lon}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw json;
+      }
+
+      return json;
+    },
+  });
 }

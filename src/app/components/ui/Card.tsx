@@ -12,7 +12,7 @@ const variantStyles = {
 
 export function Card({ children, variant = "default" }: CardProps) {
   return (
-    <div className={`rounded-card p-4 ${variantStyles[variant]}`}>
+    <div className={`w-full rounded-card p-4 ${variantStyles[variant]}`}>
       {children}
     </div>
   )
