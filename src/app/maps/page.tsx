@@ -16,7 +16,7 @@ export default function MapPage() {
         <Map />
       </div>
       <div>
-        <p className="text-[var(--color-text-secondary)] mt-3">NÆRMESTE LOKATIONER</p>
+        <p className="text-(--color-text-secondary) mt-3">NÆRMESTE LOKATIONER</p>
         <div className="flex flex-col gap-3 my-3">
             <LocationCard />
             <LocationCard />
@@ -24,7 +24,6 @@ export default function MapPage() {
         </div>
         <Button variant="primary">Gå til vask</Button>
       </div>
-      <BottomNav />
     </div>
   );
 }
