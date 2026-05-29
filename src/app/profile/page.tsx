@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "../../types/user";
 import { TopNav } from "../components/ui/TopNav";
-import { BottomNav } from "../components/ui/BottomNav";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { MembershipCard } from "../components/cards/MembershipCard";
 import { Button } from "../components/ui/Button";
@@ -26,7 +25,7 @@ export default function ProfilePage() {
     <div className="flex flex-col h-screen bg-page">
       <TopNav />
 
-      <div className="flex-1 px-5 flex flex-col gap-4 py-4 pb-32">
+      <div className=" px-5 flex flex-col gap-4 py-4 pb-32">
         <div className="space-y-4">
           <SectionHeader>Dit abonnement</SectionHeader>
           <MembershipCard
@@ -65,8 +64,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-
-      <BottomNav />
     </div>
   );
 }

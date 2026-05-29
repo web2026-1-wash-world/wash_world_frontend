@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "@/components/QueryProvider";
+import { BottomNav } from "./components/ui/BottomNav";
 
 const gilroy = localFont({
   src: [
@@ -24,10 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${gilroy.variable} h-full`}>
-      <body className="min-h-full bg-page text-text-white">
-        <div className="mx-auto flex min-h-screen w-full max-w-97.5 flex-col">
+      <body className="min-h-full  bg-page  w-97.5 text-text-white">
+        <div className="mx-auto flex min-h-screen px-4 flex-col">
           <QueryProvider>{children}</QueryProvider>
         </div>
+        <BottomNav />
       </body>
     </html>
   );
