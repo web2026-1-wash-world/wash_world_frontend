@@ -110,7 +110,6 @@ export default function PlanSelectionPage() {
                 Afmeld dit abonnement
             </Button>
             )}
-            <BottomNav />
         </div>
     );
 }
