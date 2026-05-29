@@ -37,7 +37,7 @@ export function useCars() {
       mutationFn: async (data: CreateCarData) => {
           const token = localStorage.getItem("access_token");                                                                      
           const response = await fetch(baseUrl + "/cars", {
-              method: "POST",                              x                                                                        
+              method: "POST",
               headers: {                                                                                                         
                   "Content-Type": "application/x-www-form-urlencoded",
                   "Authorization": `Bearer ${token}`,                                                                              
