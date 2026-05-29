@@ -3,16 +3,69 @@
 import { Button } from "../components/ui/Button";
 import { BottomNav } from "../components/ui/BottomNav";
 import { MembershipSelector } from "../components/ui/Membership";
-import { useState } from "react";
+import {useSubscribe, useUserMembership, useCancelMembership,} from "../hooks/useMembership";
+import { useState, useEffect } from "react";
+
 
 export default function PlanSelectionPage() {
 
+    const [token, setToken] = useState("");
+
+    useEffect(() => {
+        setToken(localStorage.getItem("access_token") ?? "");
+    }, []);
+
     const [selectedMembershipId, setSelectedMembershipId] = useState<number | null>(null);
+    const membership = useUserMembership(token);
+
+    useEffect(() => {
+        if (token) {
+            membership.mutate();
+        }
+    }, [token]);
+
+    const currentMembershipId = membership.data?.membership_pk;
+
+    useEffect(() => {
+        if (
+            currentMembershipId &&
+            selectedMembershipId === null
+        ) {
+            setSelectedMembershipId(currentMembershipId);
+        }
+    }, [currentMembershipId]);
 
     const membershipNames: Record<number, string> = {
         1: "Guld",
         2: "Premium",
         3: "Brilliant",
+    }
+
+    const subscribe = useSubscribe(token);
+
+    function handleActivate() {
+        if (!selectedMembershipId) return;
+        subscribe.mutate(
+            {
+                membership_id: selectedMembershipId,
+            },
+            {
+                onSuccess: () => {
+                    membership.mutate();
+                },
+            }
+        );
+    }
+
+    const cancelMembership = useCancelMembership(token);
+
+    function handleCancelMembership() {
+        cancelMembership.mutate(undefined, {
+            onSuccess: () => {
+                membership.mutate();
+                setSelectedMembershipId(null);
+            },
+        });
     }
 
     return (
@@ -36,11 +89,27 @@ export default function PlanSelectionPage() {
             </div>
                 <p className="mt-1 text-text-secondary">Baseret på 1 bil, moderat brug → Premium</p>
             </div>
-            <Button variant={selectedMembershipId ? "primary" : "disabled"}>
-                {selectedMembershipId
-                ? `Aktivér ${membershipNames[selectedMembershipId]}`
-                : "Vælg et medlemskab for at fortsætte"}
+            <Button
+                variant={selectedMembershipId ? "primary" : "disabled"}
+                onClick={handleActivate}
+            >
+                {!selectedMembershipId
+                    ? "Vælg et medlemskab for at fortsætte"
+                    : currentMembershipId === selectedMembershipId
+                        ? `Din nuværende plan er ${membershipNames[selectedMembershipId]}`
+                        : !currentMembershipId
+                            ? `Aktivér ${membershipNames[selectedMembershipId]}`
+                            : selectedMembershipId > currentMembershipId
+                                ? `Opgradér til ${membershipNames[selectedMembershipId]}`
+                                : `Nedgradér til ${membershipNames[selectedMembershipId]}`}
             </Button>
+            {currentMembershipId && (
+            <Button
+                variant="danger"
+                onClick={handleCancelMembership}>
+                Afmeld dit abonnement
+            </Button>
+            )}
             <BottomNav />
         </div>
     );
