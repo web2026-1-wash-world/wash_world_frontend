@@ -69,7 +69,7 @@ export default function PlanSelectionPage() {
     }
 
     return (
-        <div className="flex flex-col space-y-4 p-4">
+        <div className="flex flex-col space-y-4">
             <div className="mb-8 flex items-center gap-8">
                 <button className="text-brand-green">
                     ← Tilbage

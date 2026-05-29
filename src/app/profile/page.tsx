@@ -25,7 +25,7 @@ export default function ProfilePage() {
     <div className="flex flex-col h-screen bg-page">
       <TopNav />
 
-      <div className=" px-5 flex flex-col gap-4 py-4 pb-32">
+      <div className="flex flex-col gap-4 pb-32">
         <div className="space-y-4">
           <SectionHeader>Dit abonnement</SectionHeader>
           <MembershipCard

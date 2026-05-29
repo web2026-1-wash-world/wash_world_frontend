@@ -10,7 +10,7 @@ const Map = dynamic(() => import("@/app/components/ui/Map"), {
 
 export default function MapPage() {
   return (
-    <div className="p-4">
+    <div>
         <small className="text-(--color-text-secondary) ">NÆRMESTE LOKATIONER</small>
       <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl mt-3">
         <Map />
