@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
@@ -21,10 +21,10 @@ export function useSubscribe(access_token: string) {
             const response = await fetch(baseUrl + "/subscribe", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded",
                     Authorization: `Bearer ${access_token}`,
                 },
-                body: JSON.stringify(data),
+                body: new URLSearchParams(data), 
             });
             const json = await response.json();
             if (!response.ok) throw json;
@@ -41,9 +41,10 @@ export function useUserMembership(access_token: string) {
                 {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/x-www-form-urlencoded",
                         Authorization: `Bearer ${access_token}`,
                     },
+                    
                 }
             );
             const json = await response.json();
@@ -61,7 +62,7 @@ export function useCancelMembership(access_token: string) {
                 {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/x-www-form-urlencoded",
                         Authorization: `Bearer ${access_token}`,
                     },
                 }

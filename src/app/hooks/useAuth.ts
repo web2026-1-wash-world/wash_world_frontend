@@ -51,8 +51,8 @@ export function useSignUp() {
         mutationFn: async (data: SignUpData) => {
             const response = await fetch(baseUrl + "/sign-up", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data),
             });
             const json = await response.json();
             if (!response.ok) throw json;
@@ -66,10 +66,8 @@ export function useLogin() {
         mutationFn: async (data: LoginData) => {
             const response = await fetch(baseUrl + "/login", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json", 
-                    },
-                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data),
             });
             const json = await response.json();
             if (!response.ok) throw json;
@@ -83,8 +81,8 @@ export function useForgotPassword() {
         mutationFn: async (data: ForgotPasswordData) => {
             const response = await fetch(baseUrl + "/forgot-password", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data),
             });
             const json = await response.json();
             if (!response.ok) throw json;
@@ -98,8 +96,8 @@ export function useResetPassword() {
         mutationFn: async (data: ResetPasswordData) => {
             const response = await fetch(baseUrl + "/reset-password", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data),
             });
 
             const json = await response.json();
