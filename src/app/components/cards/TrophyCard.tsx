@@ -6,9 +6,10 @@ type TrophyCardProps = {
   title: string
   description: string
   locked?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export function TrophyCard({ title, description, locked = false }: TrophyCardProps) {
+export function TrophyCard({ title, description, locked = false, onClick }: TrophyCardProps) {
   return (
     <Card>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -19,7 +20,7 @@ export function TrophyCard({ title, description, locked = false }: TrophyCardPro
         )}
         <h3 className={locked ? "text-text-muted" : "text-text-white"}>{title}</h3>
         <p className="text-text-secondary">{description}</p>
-        {!locked && <Button variant="primary">Claim Reward</Button>}
+        {!locked && <Button onClick={onClick} variant="primary">Claim Reward</Button>}
       </div>
     </Card>
   )

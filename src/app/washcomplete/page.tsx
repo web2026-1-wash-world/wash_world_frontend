@@ -36,13 +36,15 @@ export default function washComplete() {
                 />
                 </div>
             </Card>
-            <XPCard
-                title="Clean streak"
-                washCount={7}
-                currentXP={65}
-                nextRewardXP={30}
-            >
+            <Link href="/gamification" className="w-full">
+                <XPCard
+                    title="Clean streak"
+                    washCount={7}
+                    currentXP={65}
+                    nextRewardXP={30}
+                >
             </XPCard>
+            </Link>
             <Link href="/problem"
             className="w-full">
             <Button
