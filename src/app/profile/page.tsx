@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "../../types/user";
 import { TopNav } from "../components/ui/TopNav";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { MembershipCard } from "../components/cards/MembershipCard";
@@ -10,16 +9,23 @@ import { Button } from "../components/ui/Button";
 import { HistoryCard } from "../components/cards/HistoryCard";
 import CarsSection from "./CarsSection";
 import AddCarForm from "./AddCarForm";
+import { useUserMembership } from "../hooks/useMembership";
 
 export default function ProfilePage() {
   const router = useRouter();
   const [showAddForm, setShowAddForm] = useState(false);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    if (!localStorage.getItem("access_token")) {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
       router.push("/login");
+      return;
     }
+    setToken(token);
   }, []);
+
+  const { data: membership } = useUserMembership(token);
 
   return (
     <div className="flex flex-col h-screen bg-page">
@@ -29,9 +35,9 @@ export default function ProfilePage() {
         <div className="space-y-4">
           <SectionHeader>Dit abonnement</SectionHeader>
           <MembershipCard
-            planName="Premium"
-            price="169 kr./md."
-            isActive={true}
+            planName={membership?.name ?? "..."}
+            price={membership ? `${membership.price_per_month} kr./md.` : ""}
+            isActive={membership?.status === "active"}
           />
         </div>
 

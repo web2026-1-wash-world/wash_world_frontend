@@ -1,18 +1,25 @@
 "use client";
+import { useEffect, useState } from "react";
 import { TopNav } from "../components/ui/TopNav";
 import { HeroCard } from "../components/cards/HeroCard";
 import { MiniCard } from "../components/cards/MiniCard";
 import { XPCard } from "../components/cards/XPCard";
 import { Button } from "../components/ui/Button";
-
+import { useUserMembership } from "../hooks/useMembership";
 
 import { useGetNearestLocation } from "../hooks/useAuth";
 import Link from "next/link";
+import { access } from "fs";
 
 export default function pageDashboard() {
   const getLocation = useGetNearestLocation();
   const { data } = getLocation;
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(localStorage.getItem("access_token") ?? "");
+  }, []);
 
+  const { data: membership } = useUserMembership(token);
 
   return (
     <div className="h-screen">
@@ -20,9 +27,9 @@ export default function pageDashboard() {
         <TopNav />
         <Link href="/plan-selection">
           <HeroCard
-            eyebrow="Få ubegrænset bilvask"
-            title="Vælg abonnement →"
-            subtitle="Guld · Premium · Brilliant"
+            planName={membership?.name ?? "..."}
+            price={membership ? `${membership.price_per_month} kr./md.` : ""}
+            isActive={membership?.status === "active"}
           ></HeroCard>
         </Link>
         <div className="flex flex-2 gap-2">
@@ -50,7 +57,6 @@ export default function pageDashboard() {
         <Link href="/">
           <Button>Start vask</Button>
         </Link>
-      
       </div>
     </div>
   );
