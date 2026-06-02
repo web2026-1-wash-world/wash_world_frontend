@@ -6,10 +6,8 @@ import { MiniCard } from "../components/cards/MiniCard";
 import { XPCard } from "../components/cards/XPCard";
 import { Button } from "../components/ui/Button";
 import { useUserMembership } from "../hooks/useMembership";
-
 import { useGetNearestLocation } from "../hooks/useAuth";
 import Link from "next/link";
-import { access } from "fs";
 
 export default function pageDashboard() {
   const getLocation = useGetNearestLocation();
@@ -26,11 +24,19 @@ export default function pageDashboard() {
       <div className="flex flex-col gap-4 justify-center">
         <TopNav />
         <Link href="/plan-selection">
-          <HeroCard
-            planName={membership?.name ?? "..."}
-            price={membership ? `${membership.price_per_month} kr./md.` : ""}
-            isActive={membership?.status === "active"}
-          ></HeroCard>
+          {membership?.status === "active" ? (
+            <HeroCard
+              planName={membership.name}
+              price={`${membership.price_per_month} kr./md.`}
+              isActive={true}
+            />
+          ) : (
+            <HeroCard
+              planName="Få ubegrænset bilvask"
+              price="Vælg abonnement →"
+              inactiveTitle="Guld · Premium · Brilliant"
+            />
+          )}
         </Link>
         <div className="flex flex-2 gap-2">
           <MiniCard
