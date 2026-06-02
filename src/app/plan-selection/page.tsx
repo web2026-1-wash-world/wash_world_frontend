@@ -18,12 +18,6 @@ export default function PlanSelectionPage() {
     const [selectedMembershipId, setSelectedMembershipId] = useState<number | null>(null);
     const membership = useUserMembership(token);
 
-    useEffect(() => {
-        if (token) {
-            membership.mutate();
-        }
-    }, [token]);
-
     const currentMembershipId = membership.data?.membership_pk;
 
     useEffect(() => {
@@ -51,7 +45,7 @@ export default function PlanSelectionPage() {
             },
             {
                 onSuccess: () => {
-                    membership.mutate();
+                    membership.refetch();
                 },
             }
         );
@@ -62,7 +56,7 @@ export default function PlanSelectionPage() {
     function handleCancelMembership() {
         cancelMembership.mutate(undefined, {
             onSuccess: () => {
-                membership.mutate();
+                membership.refetch();
                 setSelectedMembershipId(null);
             },
         });

@@ -1,11 +1,8 @@
 import { Card } from "../ui/Card"
 import { Badge } from "../ui/Badge"
+import { MembershipCardProps } from "../../../types/membershipProps"
 
-type MembershipCardProps = {
-  planName: string
-  price: string
-  isActive?: boolean
-}
+
 
 export function MembershipCard({ planName, price, isActive = true }: MembershipCardProps) {
   return (

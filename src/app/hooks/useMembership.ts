@@ -34,19 +34,12 @@ export function useSubscribe(access_token: string) {
 }
 
 export function useUserMembership(access_token: string) {
-    return useMutation<UserMembership, { error: string }>({
-        mutationFn: async () => {
-            const response = await fetch(
-                baseUrl + "/users/membership",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        Authorization: `Bearer ${access_token}`,
-                    },
-                    
-                }
-            );
+    return useQuery<UserMembership, { error: string }>({
+        queryKey: ["user-membership"],
+        queryFn: async () => {
+            const response = await fetch(baseUrl + "/users/membership", {
+                headers: { Authorization: `Bearer ${access_token}` },
+            });
             const json = await response.json();
             if (!response.ok) throw json;
             return json;
