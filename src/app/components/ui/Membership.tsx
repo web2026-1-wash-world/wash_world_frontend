@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { MembershipAccordion } from "./Accordion";
+
 type Membership = {
   membership_pk: number;
   name: string;
@@ -62,26 +65,39 @@ export function MembershipSelector({
   selectedMembershipId,
   setSelectedMembershipId,
 }: MembershipSelectorProps) {
+  const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
+
   return (
     <div className="space-y-4">
-      {memberships.map((membership) => (
-        <MembershipCard
-          key={membership.membership_pk}
-          title={
-            membership.name.charAt(0).toUpperCase() +
-            membership.name.slice(1)
-          }
-          price={membership.price_per_month}
-          selected={selectedMembershipId === membership.membership_pk}
-          onClick={() =>
-            setSelectedMembershipId(
-              selectedMembershipId === membership.membership_pk
-                ? null
-                : membership.membership_pk
-            )
-          }
-        />
-      ))}
+      {memberships.map((membership) => {
+        const isSelected =
+          selectedMembershipId === membership.membership_pk;
+
+        const isOpen =
+          openAccordionId === membership.membership_pk;
+
+        return (
+          <div key={membership.membership_pk}>
+            <MembershipCard
+              title={membership.name}
+              price={membership.price_per_month}
+              selected={isSelected}
+              onClick={() => {
+                setSelectedMembershipId(membership.membership_pk);
+
+                setOpenAccordionId(
+                  isOpen ? null : membership.membership_pk
+                );
+              }}
+            />
+
+            <MembershipAccordion
+              membership_pk={membership.membership_pk}
+              open={isOpen}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

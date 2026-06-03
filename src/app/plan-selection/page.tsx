@@ -22,6 +22,11 @@ export default function PlanSelectionPage() {
   const [selectedMembershipId, setSelectedMembershipId] = useState<
     number | null
   >(null);
+
+  const [openAccordionId, setOpenAccordionId] = useState<
+    number | null
+  >(null);
+
   const membership = useUserMembership(token);
   const memberships = useMemberships(token);
 
@@ -37,6 +42,7 @@ export default function PlanSelectionPage() {
 
   function handleActivate() {
     if (!selectedMembershipId) return;
+
     subscribe.mutate(
       {
         membership_id: selectedMembershipId,
@@ -44,10 +50,13 @@ export default function PlanSelectionPage() {
       {
         onSuccess: () => {
           membership.refetch();
+          setOpenAccordionId(null);
         },
-      },
+      }
     );
   }
+
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const cancelMembership = useCancelMembership(token);
 
@@ -56,6 +65,7 @@ export default function PlanSelectionPage() {
       onSuccess: () => {
         membership.refetch();
         setSelectedMembershipId(null);
+        setOpenAccordionId(null);
       },
     });
   }
@@ -80,7 +90,6 @@ export default function PlanSelectionPage() {
           selectedMembershipId={selectedMembershipId}
           setSelectedMembershipId={setSelectedMembershipId}
       />
-      <Button variant="secondary">Læs mere om vaskeprogrammer</Button>
       <div className="px-4">
         <div className="flex items-center gap-2">
           <span className="text-sm text-brand-green">✦</span>
@@ -111,10 +120,54 @@ export default function PlanSelectionPage() {
                 : `Nedgradér til ${selectedMembership?.name}`}
       </Button>
       {currentMembershipId && (
-        <Button variant="danger" onClick={handleCancelMembership}>
-          Afmeld dit abonnement
+        <Button
+          variant="danger"
+          onClick={() => setShowCancelModal(true)}
+        >
+          Opsig dit abonnement
         </Button>
       )}
+      
+      {showCancelModal && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5">
+        <div className="w-full max-w-sm rounded-card border border-divider bg-surface p-5">
+          <h2>Opsig abonnement</h2>
+
+          <p className="mt-2 text-text-secondary">
+            Er du sikker på, at du vil opsige dit abonnement? Denne handling kan ikke fortrydes, og du vil miste adgangen til dine fordele ved udgangen af din nuværende abonnementsperiode.
+          </p>
+
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <Button
+              variant="primary"
+              onClick={() => setShowCancelModal(false)}
+            >
+              Behold abonnement
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={() => {
+                setShowCancelModal(false);
+
+                cancelMembership.mutate(undefined, {
+                  onSuccess: () => {
+                    membership.refetch();
+                    setSelectedMembershipId(null);
+                    setOpenAccordionId(null);
+                  },
+                });
+              }}
+            >
+              Ja, opsig
+            </Button>
+          </div>
+        </div>
+      </div>
+    )}
+
+
     </div>
   );
 }
+
