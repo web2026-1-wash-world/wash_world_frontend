@@ -51,13 +51,15 @@ export default function pageDashboard() {
           ></MiniCard>
         </div>
         <small className="text-text-secondary">VASKEOVERBLIK</small>
-        <XPCard
-          title="Clean streak"
-          washCount={7}
-          currentXP={65}
-          nextRewardXP={30}
-        ></XPCard>
-        <Link href="/">
+        <Link href="/gamification">
+          <XPCard
+            title="Clean streak"
+            washCount={7}
+            currentXP={65}
+            nextRewardXP={30}
+          ></XPCard>
+        </Link>
+        <Link href="/plan-selection">
           <Button variant="secondary">Se abonnementer</Button>
         </Link>
         <Link href="/wash">
