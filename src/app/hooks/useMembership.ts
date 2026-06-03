@@ -15,6 +15,28 @@ type UserMembership = {
     status: string;
 };
 
+type Membership = {
+  membership_pk: number;
+  name: string;
+  price_per_month: number;
+};
+
+export function useMemberships(access_token: string) {
+    return useQuery<Membership[], { error: string }>({
+        queryKey: ["memberships"],
+        queryFn: async () => {
+            const response = await fetch(baseUrl + "/memberships", {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            const json = await response.json();
+            if (!response.ok) throw json;
+            return json;
+        },
+    });
+}
+
 export function useSubscribe(access_token: string) {
     return useMutation<{ message: string }, { error: string; field: string }, SubscribeData>({
         mutationFn: async (data: SubscribeData) => {

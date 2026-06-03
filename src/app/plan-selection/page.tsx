@@ -1,19 +1,18 @@
 "use client";
 
 import { Button } from "../components/ui/Button";
-import { useRouter } from "next/navigation";
 import { MembershipSelector } from "../components/ui/Membership";
 import {
   useSubscribe,
   useUserMembership,
   useCancelMembership,
+  useMemberships,
 } from "../hooks/useMembership";
 import { useState, useEffect } from "react";
 import { TopNav } from "../components/ui/TopNav";
 import { BackButton } from "../components/ui/BackButton";
 
 export default function PlanSelectionPage() {
-  const router = useRouter();
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -24,6 +23,7 @@ export default function PlanSelectionPage() {
     number | null
   >(null);
   const membership = useUserMembership(token);
+  const memberships = useMemberships(token);
 
   const currentMembershipId = membership.data?.membership_pk;
 
@@ -31,13 +31,7 @@ export default function PlanSelectionPage() {
     if (currentMembershipId && selectedMembershipId === null) {
       setSelectedMembershipId(currentMembershipId);
     }
-  }, [currentMembershipId]);
-
-  const membershipNames: Record<number, string> = {
-    1: "Guld",
-    2: "Premium",
-    3: "Brilliant",
-  };
+  }, [currentMembershipId, selectedMembershipId]);
 
   const subscribe = useSubscribe(token);
 
@@ -66,6 +60,10 @@ export default function PlanSelectionPage() {
     });
   }
 
+  const selectedMembership = memberships.data?.find(
+    (membership) => membership.membership_pk === selectedMembershipId
+  );
+
   const isCurrentPlan = currentMembershipId === selectedMembershipId;
 
   return (
@@ -78,8 +76,9 @@ export default function PlanSelectionPage() {
         Vælg det medlemskab der passer til dine behov
       </p>
       <MembershipSelector
-        selectedMembershipId={selectedMembershipId}
-        setSelectedMembershipId={setSelectedMembershipId}
+          memberships={memberships.data ?? []}
+          selectedMembershipId={selectedMembershipId}
+          setSelectedMembershipId={setSelectedMembershipId}
       />
       <Button variant="secondary">Læs mere om vaskeprogrammer</Button>
       <div className="px-4">
@@ -104,12 +103,12 @@ export default function PlanSelectionPage() {
         {!selectedMembershipId
           ? "Vælg et medlemskab for at fortsætte"
           : isCurrentPlan
-            ? `Din nuværende plan er ${membershipNames[selectedMembershipId]}`
+            ? `Din nuværende plan er ${selectedMembership?.name}`
             : !currentMembershipId
-              ? `Aktivér ${membershipNames[selectedMembershipId]}`
+              ? `Aktivér ${selectedMembership?.name}`
               : selectedMembershipId > currentMembershipId
-                ? `Opgradér til ${membershipNames[selectedMembershipId]}`
-                : `Nedgradér til ${membershipNames[selectedMembershipId]}`}
+                ? `Opgradér til ${selectedMembership?.name}`
+                : `Nedgradér til ${selectedMembership?.name}`}
       </Button>
       {currentMembershipId && (
         <Button variant="danger" onClick={handleCancelMembership}>
