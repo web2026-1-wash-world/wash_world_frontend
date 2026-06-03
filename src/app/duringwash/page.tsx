@@ -127,8 +127,8 @@ export default function duringWash() {
             </div>
             <div className="text-center">
                 <HeroCard
-                eyebrow="Igangværende vask"
-                title=
+                planName="Igangværende vask"
+                price=
                 {timer >= 16
                 ? "SKUM"
                 : timer >= 12
@@ -138,7 +138,7 @@ export default function duringWash() {
                 : timer >= 4
                 ? "VOKSBEHANDLING"
                 : "TØRRING"}
-                subtitle=            
+                inactiveTitle=            
                 {timer >= 16
                 ? "Næste trin: UNDERVOGNSVASK"
                 : timer >= 12
