@@ -11,6 +11,7 @@ type TopNavProps = {
 
 export function TopNav({ variant = "default", title }: TopNavProps) {
   const [initial, setInitial] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") ?? "null");
@@ -28,7 +29,11 @@ export function TopNav({ variant = "default", title }: TopNavProps) {
   return (
     <header className="flex h-(--size-top-nav) items-center justify-between mt-2 px-5">
       <h3 className="text-white uppercase">Wash World</h3>
-      {initial && <Avatar initial={initial} />}
+      {initial && (
+        <button onClick={() => router.push("/settings")}>
+          <Avatar initial={initial} />
+        </button>
+      )}
     </header>
   )
 }

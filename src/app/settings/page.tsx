@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { LuArrowLeft, LuUser, LuCreditCard, LuGlobe, LuBell } from "react-icons/lu";
+import { LuUser, LuCreditCard, LuGlobe, LuBell } from "react-icons/lu";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SettingsRow } from "@/app/components/ui/SettingsRow";
+import { BackButton } from "@/app/components/ui/BackButton";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -18,13 +19,7 @@ export default function SettingsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-page px-5">
       <header className="relative flex h-(--size-top-nav) items-center justify-center mt-4">
-        <button
-          onClick={() => router.back()}
-          className="absolute left-0 flex items-center gap-1 text-brand-green font-extrabold"
-        >
-          <LuArrowLeft className="size-4" />
-          <span className="text-sm">Tilbage</span>
-        </button>
+        <BackButton className="absolute left-0" />
         <h2 className="text-text-white">Indstillinger</h2>
       </header>
 

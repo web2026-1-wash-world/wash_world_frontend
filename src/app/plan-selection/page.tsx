@@ -10,6 +10,7 @@ import {
 } from "../hooks/useMembership";
 import { useState, useEffect } from "react";
 import { TopNav } from "../components/ui/TopNav";
+import { BackButton } from "../components/ui/BackButton";
 
 export default function PlanSelectionPage() {
   const router = useRouter();
@@ -71,10 +72,7 @@ export default function PlanSelectionPage() {
     <div className="flex flex-col space-y-4">
       <TopNav />
       <div>
-        <button
-          onClick={() => router.back()}
-          className=" left-0 flex items-center gap-1 text-brand-green font-extrabold"
-        ></button>
+        <BackButton />
       </div>
       <p className="text-text-secondary">
         Vælg det medlemskab der passer til dine behov
