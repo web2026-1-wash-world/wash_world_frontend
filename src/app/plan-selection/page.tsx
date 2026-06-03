@@ -65,6 +65,10 @@ export default function PlanSelectionPage() {
     const isCurrentPlan =
     currentMembershipId === selectedMembershipId;
 
+    console.log("data", membership.data);
+    console.log("error", membership.error);
+    console.log("status", membership.status);
+
     return (
         <div className="flex flex-col space-y-4">
             <div className="mb-8 flex items-center gap-8">
