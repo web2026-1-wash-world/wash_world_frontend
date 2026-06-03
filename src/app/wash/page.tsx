@@ -28,7 +28,7 @@ export default function WashPage() {
     <div className="flex flex-col gap-4">
       <TopNav />
 
-      <SectionHeader>DIN VASK</SectionHeader>
+      <SectionHeader>DIT ABONNEMENT</SectionHeader>
       <MembershipCard
         planName={membership?.name ?? "..."}
         price={membership ? `${membership.price_per_month} kr./md.` : ""}
@@ -57,7 +57,7 @@ export default function WashPage() {
       <div className="flex flex-col gap-2">
         <div className="rounded-card border border-splash-orange opacity-60 cursor-not-allowed">
           <ListItem
-            title={`${selectedName} – Hal 1`}
+            title={`Hal 1 – ${selectedName}`}
             subtitle="Ventetid:"
             status="busy"
             trailing={<Badge variant="warning">~7 min</Badge>}
@@ -67,7 +67,7 @@ export default function WashPage() {
         <button onClick={() => setHallPicked(true)} className="w-full text-left">
           <div className={`rounded-card border ${hallPicked ? "border-brand-green" : "border-transparent"}`}>
             <ListItem
-              title={`${selectedName} – Hal 2`}
+              title={`Hal 2 – ${selectedName}`}
               subtitle="Ventetid:"
               status="open"
               trailing={<Badge variant="subtle">~0 min</Badge>}
@@ -77,7 +77,7 @@ export default function WashPage() {
 
         <div className="rounded-card border border-splash-orange opacity-60 cursor-not-allowed">
           <ListItem
-            title={`${selectedName} – Hal 3`}
+            title={`Hal 3 – ${selectedName}`}
             subtitle="Ventetid:"
             status="busy"
             trailing={<Badge variant="warning">~13 min</Badge>}
