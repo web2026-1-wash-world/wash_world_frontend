@@ -1,10 +1,18 @@
 "use client";
 
+import "leaflet/dist/leaflet.css";
 import { useQuery } from "@tanstack/react-query";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+
+type StationResponse = {
+  station_pk: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+};
 
 type Station = {
   id: number;
@@ -20,9 +28,13 @@ const customIcon = L.icon({
 });
 
 async function fetchStations(): Promise<Station[]> {
-  console.log(baseUrl);
   const res = await fetch(baseUrl + "/stations");
-  return res.json();
+  const data: StationResponse[] = await res.json();
+  return data.map((s) => ({
+    id: s.station_pk,
+    name: s.name,
+    position: [s.latitude, s.longitude],
+  }));
 }
 
 export default function Map() {
@@ -50,7 +62,7 @@ export default function Map() {
 
       {locations.map((location) => (
         <Marker
-          key={location.id}
+          key={`station-${location.id}`}
           position={location.position}
           icon={customIcon}
         >
@@ -59,7 +71,7 @@ export default function Map() {
             closeButton={false}
             offset={[0, -10]}
           >
-            <div className="px-1 py-1 text-sm font-medium text-[var(--color-brand-green)]">
+            <div className="px-1 py-1 text-sm font-medium text-(--color-brand-green)">
               {location.name}
             </div>
           </Popup>

@@ -42,7 +42,7 @@ export function useCars() {
                   "Content-Type": "application/x-www-form-urlencoded",
                   "Authorization": `Bearer ${token}`,                                                                              
               },
-              body: new URLSearchParams(data).toString(),                                                                          
+              body: new URLSearchParams(data),                                                                          
           });                                                                                                                    
           const json = await response.json();
           if (!response.ok) throw json;                                                                                            
