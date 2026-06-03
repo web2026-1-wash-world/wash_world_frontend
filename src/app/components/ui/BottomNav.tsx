@@ -14,7 +14,7 @@ const tabs = [
 export function BottomNav() {
   const pathname = usePathname()
 
-  const hidden = ["/login", "/sign-up", "/forgot-password"]
+  const hidden = ["/login", "/sign-up", "/forgot-password", "plan-selection"]
   if (hidden.includes(pathname)) return null
 
   return (
