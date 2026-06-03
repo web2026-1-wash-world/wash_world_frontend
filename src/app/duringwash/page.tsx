@@ -155,9 +155,6 @@ export default function duringWash() {
                 <Button variant="danger">
                     Nødstop
                 </Button>
-                <Button variant="secondary">
-                    Kundesupport
-                </Button>
             </div>
         </section>
     )
