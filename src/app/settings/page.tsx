@@ -6,6 +6,9 @@ import { LuUser, LuCreditCard, LuGlobe, LuBell, LuLogOut } from "react-icons/lu"
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SettingsRow } from "@/app/components/ui/SettingsRow";
 import { BackButton } from "@/app/components/ui/BackButton";
+import { FaRegTrashAlt } from "react-icons/fa";
+
+import Link from "next/link";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -79,6 +82,16 @@ export default function SettingsPage() {
             />
           </button>
         </div>
+        <Link href="/delete-user">
+          <div className="flex flex-col gap-1">
+          <SectionHeader>Slet bruger</SectionHeader>
+          <SettingsRow
+            icon={<FaRegTrashAlt />}
+            title="Slet profil"
+            subtitle="Slet din Wash World konto"
+          />
+        </div>
+        </Link>
       </div>
     </div>
   );

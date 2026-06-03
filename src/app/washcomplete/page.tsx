@@ -1,5 +1,8 @@
+"use client"
+
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 import { Card } from "../components/ui/Card";
 import { XPCard } from "../components/cards/XPCard";
@@ -7,13 +10,20 @@ import { Button } from "../components/ui/Button"
 import Link from "next/link"
 
 export default function washComplete() {
+
+    const [savedStation, setSavedStation] = useState("");
+
+    useEffect(() => {
+    setSavedStation(localStorage.getItem("selectedStation") ?? "");
+    }, []);
+
     return (
         <div className="flex flex-col justify-center items-center gap-3">
             <IoCheckmarkCircleSharp
             className="text-6xl fill-(--color-green-on-black)"
             />
             <h1>Vasken er færdig</h1>
-            <p className="text-(--color-text-secondary)">Herlev  · I dag 14:32 </p>
+            <p className="text-(--color-text-secondary)"> {savedStation} </p>
             <Card>
                 <div className="w-full justify-center flex items-center">
                     <p className="text-(--color-text-secondary)">Bedøm din vask</p>
