@@ -14,10 +14,6 @@ export default function Gamification () {
     return (
         <section>
         <div className={`flex flex-col gap-2 ${claimed ? "blur-xl" : ""}`}>
-            <TopNav
-            initial="R"
-            >
-            </TopNav>
             <XPCard
                 title="Clean streak"
                 washCount={7}
