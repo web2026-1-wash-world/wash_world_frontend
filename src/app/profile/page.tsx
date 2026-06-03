@@ -67,7 +67,7 @@ export default function ProfilePage() {
             </div>
             <div className="flex-1">
               <Link href="/plan-selection">
-                <Button variant="outline">Opgrader abonnement</Button>
+                <Button variant="outline">Skift abonnement</Button>
               </Link>
             </div>
           </div>
