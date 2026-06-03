@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "../components/ui/Button";
-import { BottomNav } from "../components/ui/BottomNav";
 import { useRouter } from "next/navigation";
 import { MembershipSelector } from "../components/ui/Membership";
 import {
