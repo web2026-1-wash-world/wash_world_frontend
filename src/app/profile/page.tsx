@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { TopNav } from "../components/ui/TopNav";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { MembershipCard } from "../components/cards/MembershipCard";
@@ -65,7 +66,9 @@ export default function ProfilePage() {
               <Button variant="secondary">Rapporter problem</Button>
             </div>
             <div className="flex-1">
-              <Button variant="outline">Opgrader vask</Button>
+              <Link href="/plan-selection">
+                <Button variant="outline">Opgrader abonnement</Button>
+              </Link>
             </div>
           </div>
         </div>

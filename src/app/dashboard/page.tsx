@@ -60,7 +60,7 @@ export default function pageDashboard() {
         <Link href="/">
           <Button variant="secondary">Se abonnementer</Button>
         </Link>
-        <Link href="/">
+        <Link href="/wash">
           <Button>Start vask</Button>
         </Link>
       </div>

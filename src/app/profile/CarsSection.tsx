@@ -2,6 +2,7 @@
 
 import { useCars } from "../hooks/useCars";
 import { ListItem } from "../components/ui/ListItem";
+import { Button } from "../components/ui/Button";
 
 export default function CarsSection() {
     const { cars, isLoading, deleteCar } = useCars();
@@ -16,12 +17,12 @@ export default function CarsSection() {
                     title={`${car.car_brand} ${car.car_model}`}
                     subtitle={car.car_license_plate}
                     trailing={
-                        <button
+                        <Button
+                            variant="delete"
                             onClick={() => deleteCar(car.car_pk)}
-                            className="text-danger-red text-sm font-bold shrink-0"
                         >
                             Slet
-                        </button>
+                        </Button>
                     }
                 />
             ))}

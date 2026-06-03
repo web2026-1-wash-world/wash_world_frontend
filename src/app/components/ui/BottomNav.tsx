@@ -14,6 +14,9 @@ const tabs = [
 export function BottomNav() {
   const pathname = usePathname()
 
+  const hidden = ["/login", "/sign-up", "/forgot-password"]
+  if (hidden.includes(pathname)) return null
+
   return (
     <nav className="sticky bottom-5 mx-5 flex h-(--size-bottom-nav) items-center justify-around rounded-nav uppercase bg-surface px-2">
       {tabs.map(({ href, label, Icon }) => {

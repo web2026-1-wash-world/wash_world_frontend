@@ -1,7 +1,7 @@
 "use client";
 
 import LocationCard from "../components/cards/LocationCard";
-import { Button } from "../components/ui/Button";
+
 import dynamic from "next/dynamic";
 
 const Map = dynamic(() => import("@/app/components/ui/Map"), {
@@ -22,7 +22,6 @@ export default function MapPage() {
             <LocationCard />
             <LocationCard />
         </div>
-        <Button variant="primary">Gå til vask</Button>
       </div>
     </div>
   );
