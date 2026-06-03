@@ -25,7 +25,7 @@ export default function LoginPage() {
 };
 
   return (
-    <div className="h-screen overflow-hidden bg-black pt-50">
+    <div className="h-screen overflow-hidden bg-black pt-50 -m-4">
         <div className="bg-surface h-full px-6 flex items-start justify-center py-15 rounded-t-nav">
             <form className="flex flex-col gap-4 w-full"
             onSubmit={handleSubmit}

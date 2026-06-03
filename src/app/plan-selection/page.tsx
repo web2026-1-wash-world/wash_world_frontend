@@ -85,7 +85,7 @@ export default function PlanSelectionPage() {
                 <h3 className="text-brand-green">Anbefalet til dig</h3>
             </div>
                 <p className="mt-1 text-text-secondary">Baseret på 1 bil, moderat brug → Premium</p>
-            </div>
+            </div>  
             <Button
                 variant={
                     !selectedMembershipId
