@@ -25,8 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${gilroy.variable} h-full`}>
-      <body className="min-h-full  bg-page h-screen w-97.5 text-text-white">
-        <div className="mx-auto flex p-4 flex-col">
+      <body className="flex flex-col bg-page h-187.5 w-97.5 text-text-white">
+        <div className="flex-1 overflow-y-auto p-4">
           <QueryProvider>{children}</QueryProvider>
         </div>
         <BottomNav />

@@ -18,7 +18,7 @@ export function BottomNav() {
   if (hidden.includes(pathname)) return null
 
   return (
-    <nav className="sticky bottom-5 mx-5 flex h-(--size-bottom-nav) items-center justify-around rounded-nav uppercase bg-surface px-2">
+    <nav className="mx-5 mb-5 flex h-(--size-bottom-nav) items-center justify-around rounded-nav uppercase bg-surface px-2">
       {tabs.map(({ href, label, Icon }) => {
         const isActive = pathname === href
         return (
