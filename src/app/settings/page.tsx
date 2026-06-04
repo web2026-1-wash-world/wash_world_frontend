@@ -2,10 +2,11 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { LuUser, LuCreditCard, LuGlobe, LuBell, LuLogOut } from "react-icons/lu";
+import { LuCreditCard, LuGlobe, LuBell, LuLogOut } from "react-icons/lu";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SettingsRow } from "@/app/components/ui/SettingsRow";
 import { BackButton } from "@/app/components/ui/BackButton";
+import { UpdateUserAccordion } from "@/app/components/ui/UpdateUserAccordion";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -26,11 +27,7 @@ export default function SettingsPage() {
       <div className="flex flex-col gap-4 py-2">
         <div className="flex flex-col">
           <SectionHeader>Profil</SectionHeader>
-          <SettingsRow
-            icon={<LuUser />}
-            title="Oplysninger"
-            subtitle="Lav ændringer i dine informationer"
-          />
+          <UpdateUserAccordion />
         </div>
 
         <div className="flex flex-col gap-1">
