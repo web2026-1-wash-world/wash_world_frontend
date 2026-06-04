@@ -44,7 +44,6 @@ export default function DeleteUser() {
             <ul className="list-disc pl-4 text-(--color-text-secondary)">
                 <li>Din konto bliver permanent slettet</li>
                 <li>Dine profiloplysninger fjernes</li>
-                <li>Dine biler fjernes fra systemet</li>
                 <li>Dine point og badges går tabt</li>
             </ul>
         </div>
