@@ -2,14 +2,17 @@
 import { useState } from "react"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 import { HeroCard } from "../components/cards/HeroCard"
 import { Button } from "../components/ui/Button"
+import emergencyStop from "../emergencystop/page"
 
 export default function duringWash() {
     const router = useRouter();
     
     const [timer, setTimer] = useState(20)
+    const [confirmEmergency, setConfirmEmergency] = useState(false)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -104,11 +107,12 @@ export default function duringWash() {
     }
 
     return (
-        <section>
-            <div className="flex h-(--size-top-nav) items-center justify-between px-5">
-                <h3 className="text-brand-green">Wash World</h3>
-                <small className=" flex items-center gap-2 text-(--color-text-white)"><span className="text-2xl self-start">·</span>Live</small>
-            </div>
+        <section className="relative">
+            <div className={`${confirmEmergency ? "blur-xl" : ""}`}>
+                <div className="flex h-(--size-top-nav) items-center justify-between px-5">
+                    <h3 className="text-brand-green">Wash World</h3>
+                    <small className=" flex items-center gap-2 text-(--color-text-white)"><span className="text-2xl self-start">·</span>Live</small>
+                </div>
             <div className="w-97.5 grid">
                 <div className="col-start-1 row-start-1 flex gap-0.5 *:bg-(--color-surface) *:h-1.5 *:w-full *:rounded-full">
                     <span></span>
@@ -152,10 +156,38 @@ export default function duringWash() {
             </div>
             <p className="text-(--color-text-secondary) my-6">BLIV VENLIGST I BILEN</p>
             <div className="flex flex-col gap-3">
-                <Button variant="danger">
-                    Nødstop
-                </Button>
+
+                    <Button variant="danger"
+                        onClick={() => setConfirmEmergency(true)}>
+                        Nødstop
+                    </Button>
             </div>
+            </div>
+
+                    {confirmEmergency ?
+                        <div className="flex flex-col gap-4 rounded-xl bg-(--color-surface) p-6 absolute w-full top-1/4">
+                            <h2>Nødstop aktiveres</h2>
+                            <p>Er du sikker på, at du vil aktivere nødstop?</p>
+                            <p>Bilvasken stoppes øjeblikkeligt, og programmet kan ikke genoptages. Brug kun nødstop ved fare eller hvis der opstår et problem under vasken.</p>
+                            <div className="flex gap-3">
+                                <Button
+                                type="button"
+                                onClick={() => router.push("/emergencystop")}
+                                >
+                                Bekræft
+                                </Button>
+
+                                <Button
+                                type="button"
+                                variant="danger"
+                                onClick={()=> setConfirmEmergency(false)}
+                                >
+                                Afbryd
+                                </Button>
+                            </div>
+                    </div>
+                    : null}
+
         </section>
     )
 }

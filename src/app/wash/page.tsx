@@ -85,7 +85,8 @@ export default function WashPage() {
         </div>
       </div>
 
-      <Link href="/duringwash" className={`w-full ${!hallPicked ? "pointer-events-none opacity-40" : ""}`}>
+      <Link href="/duringwash" className={`w-full ${!hallPicked ? "pointer-events-none opacity-40" : ""}`}
+      onClick={() => localStorage.setItem("selectedStation", selectedName)}>
         <Button>Start vask →</Button>
       </Link>
       <Button variant="secondary">Kundesupport</Button>

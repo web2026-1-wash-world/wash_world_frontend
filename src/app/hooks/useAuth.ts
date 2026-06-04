@@ -30,11 +30,9 @@ type ResetPasswordData = {
     reset_key: string;
 };
 
-type DeleteAccountData = {
-    user_first_name: string;
-    user_last_name: string;
-    user_email: string;
-    user_password: string;
+type DeleteUserData = {
+    message: string;
+    user_pk: string;
 };
 
 type NearestStationData = {
@@ -109,22 +107,25 @@ export function useResetPassword() {
     });
 }
 
-export function useDeleteAccount() {
-    return useMutation<{ message: string }, { error: string; field: string }, DeleteAccountData>({
-        mutationFn: async (data: DeleteAccountData) => {
-            const response = await fetch(baseUrl + "/reset-password", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
+export function useDeleteUser() {
+  return useMutation<{ message: string}, { error: string;}, string>({
+    mutationFn: async (user_pk: string,) => {
+      const token = localStorage.getItem("access_token");
 
-            const json = await response.json();
-
-            if (!response.ok) throw json;
-
-            return json;
+      const response = await fetch(`${baseUrl}/delete-user/${user_pk}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-    });
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) throw json;
+
+      return json;
+    },
+  });
 }
 
 export function useGetNearestLocation() {

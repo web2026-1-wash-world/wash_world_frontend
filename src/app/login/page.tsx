@@ -8,11 +8,17 @@ import { Input } from "@/app/components/ui/Input"
 import { Button } from "@/app/components/ui/Button"
 import { Checkbox } from "../components/ui/Checkbox"
 
+import { useSearchParams } from "next/navigation";
+
 export default function LoginPage() {
     const router = useRouter();
     const login = useLogin();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const searchParams = useSearchParams();
+
+    const successMessage = searchParams.get("message");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,6 +37,13 @@ export default function LoginPage() {
             onSubmit={handleSubmit}
             >
                 <h1 className="text-center mb-5">Login</h1>
+                <div>
+                    {successMessage ? (
+                    <p className="text-(--color-green-on-black)">
+                        {successMessage}
+                    </p>
+                ) : null}
+                </div>
 
                 {login.isSuccess ? (<p className="text-green-600">{login.data.message}</p>) : ""}
                 {login.isError ? (<p className="text-red-600">{login.error.error}</p>) : ""}

@@ -62,9 +62,16 @@ export default function pageDashboard() {
         <Link href="/plan-selection">
           <Button variant="secondary">Se abonnementer</Button>
         </Link>
+        {membership ?
         <Link href="/wash">
           <Button>Start vask</Button>
         </Link>
+        : <div>
+              <Button
+              variant="disabled">
+                Vælg abonnement for at starte
+              </Button>
+          </div>}
       </div>
     </div>
   );
