@@ -159,3 +159,37 @@ export function useGetNearestLocation() {
     },
   });
 }
+
+type UpdateUserData = {
+    user_first_name: string;
+    user_last_name: string;
+    user_email: string;
+};
+
+type UpdateUserResponse = {
+    message: string;
+    user: {
+        user_first_name: string;
+        user_last_name: string;
+        user_email: string;
+    };
+    access_token?: string;
+};
+
+export function useUpdateUser(access_token: string) {
+    return useMutation<UpdateUserResponse, { error: string; field?: string }, UpdateUserData>({
+        mutationFn: async (data) => {
+            const response = await fetch(baseUrl + "/user", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: new URLSearchParams(data),
+            });
+            const json = await response.json();
+            if (!response.ok) throw json;
+            return json;
+        },
+    });
+}
