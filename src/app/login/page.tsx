@@ -77,8 +77,9 @@ export default function LoginPage() {
                     </a>
                 </div>
 
-                <Button type="submit">
-                Login
+                <Button type="submit"
+                disabled={login.isPending}>
+                {login.isPending ? "Login in..." : "Opret bruger"}
                 </Button>
 
                 <p className="text-center text-sm text-text-secondary mt-4">
@@ -88,7 +89,6 @@ export default function LoginPage() {
                     href="/sign-up"
                     className="font-bold text-text-secondary"
                 >
-                    Opret bruger
                 </a>
                 </p>
             </form>
