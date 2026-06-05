@@ -11,21 +11,27 @@ import {
 import { useState, useEffect } from "react";
 import { TopNav } from "../components/ui/TopNav";
 import { BackButton } from "../components/ui/BackButton";
+import { useRouter } from "next/navigation";
 
 export default function PlanSelectionPage() {
+  const router = useRouter()
+  
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem("access_token") ?? "");
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
+    setToken(token);
   }, []);
 
   const [selectedMembershipId, setSelectedMembershipId] = useState<
     number | null
   >(null);
 
-  const [openAccordionId, setOpenAccordionId] = useState<
-    number | null
-  >(null);
+  const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
 
   const membership = useUserMembership(token);
   const memberships = useMemberships(token);
@@ -52,7 +58,7 @@ export default function PlanSelectionPage() {
           membership.refetch();
           setOpenAccordionId(null);
         },
-      }
+      },
     );
   }
 
@@ -71,7 +77,7 @@ export default function PlanSelectionPage() {
   }
 
   const selectedMembership = memberships.data?.find(
-    (membership) => membership.membership_pk === selectedMembershipId
+    (membership) => membership.membership_pk === selectedMembershipId,
   );
 
   const isCurrentPlan = currentMembershipId === selectedMembershipId;
@@ -86,9 +92,9 @@ export default function PlanSelectionPage() {
         Vælg det medlemskab der passer til dine behov
       </p>
       <MembershipSelector
-          memberships={memberships.data ?? []}
-          selectedMembershipId={selectedMembershipId}
-          setSelectedMembershipId={setSelectedMembershipId}
+        memberships={memberships.data ?? []}
+        selectedMembershipId={selectedMembershipId}
+        setSelectedMembershipId={setSelectedMembershipId}
       />
       <div className="px-4">
         <div className="flex items-center gap-2">
@@ -120,54 +126,50 @@ export default function PlanSelectionPage() {
                 : `Nedgradér til ${selectedMembership?.name}`}
       </Button>
       {currentMembershipId && (
-        <Button
-          variant="danger"
-          onClick={() => setShowCancelModal(true)}
-        >
+        <Button variant="danger" onClick={() => setShowCancelModal(true)}>
           Opsig dit abonnement
         </Button>
       )}
-      
+
       {showCancelModal && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5">
-        <div className="w-full max-w-sm rounded-card border border-divider bg-surface p-5">
-          <h2>Opsig abonnement</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5">
+          <div className="w-full max-w-sm rounded-card border border-divider bg-surface p-5">
+            <h2>Opsig abonnement</h2>
 
-          <p className="mt-2 text-text-secondary">
-            Er du sikker på, at du vil opsige dit abonnement? Denne handling kan ikke fortrydes, og du vil miste adgangen til dine fordele ved udgangen af din nuværende abonnementsperiode.
-          </p>
+            <p className="mt-2 text-text-secondary">
+              Er du sikker på, at du vil opsige dit abonnement? Denne handling
+              kan ikke fortrydes, og du vil miste adgangen til dine fordele ved
+              udgangen af din nuværende abonnementsperiode.
+            </p>
 
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <Button
-              variant="primary"
-              onClick={() => setShowCancelModal(false)}
-            >
-              Behold abonnement
-            </Button>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <Button
+                variant="primary"
+                onClick={() => setShowCancelModal(false)}
+              >
+                Behold abonnement
+              </Button>
 
-            <Button
-              variant="danger"
-              onClick={() => {
-                setShowCancelModal(false);
+              <Button
+                variant="danger"
+                onClick={() => {
+                  setShowCancelModal(false);
 
-                cancelMembership.mutate(undefined, {
-                  onSuccess: () => {
-                    membership.refetch();
-                    setSelectedMembershipId(null);
-                    setOpenAccordionId(null);
-                  },
-                });
-              }}
-            >
-              Ja, opsig
-            </Button>
+                  cancelMembership.mutate(undefined, {
+                    onSuccess: () => {
+                      membership.refetch();
+                      setSelectedMembershipId(null);
+                      setOpenAccordionId(null);
+                    },
+                  });
+                }}
+              >
+                Ja, opsig
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-
-
+      )}
     </div>
   );
 }
-

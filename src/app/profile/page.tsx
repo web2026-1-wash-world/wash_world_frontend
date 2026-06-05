@@ -20,7 +20,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {
-      router.push("/login");
+      router.replace("/login");
       return;
     }
     setToken(token);
