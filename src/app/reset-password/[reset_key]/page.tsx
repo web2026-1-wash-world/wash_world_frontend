@@ -83,8 +83,9 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                     </div>
                 ) : ""}
 
-                <Button type="submit">
-                    Opdater adgangskode
+                <Button type="submit"
+                    disabled={resetPassword.isPending}>
+                    {resetPassword.isPending ? "Opdaterer adgangskode..." : "Opdater adgangskode"}
                 </Button>
             </form>
         </div>

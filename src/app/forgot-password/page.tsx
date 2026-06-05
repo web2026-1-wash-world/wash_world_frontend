@@ -14,6 +14,8 @@ export default function LoginPage() {
     const forgotPassword = useForgotPassword();
     const [email, setEmail] = useState("");
 
+    const router = useRouter()
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         forgotPassword.mutate({ user_email: email}),{onSuccess: (data) => {
@@ -52,8 +54,9 @@ export default function LoginPage() {
                     </div>
                 ) : ""}
 
-                <Button type="submit">
-                    Send link
+                <Button type="submit"
+                    disabled={forgotPassword.isPending}>
+                    {forgotPassword.isPending ? "Sender link..." : "Send link"}
                 </Button>
             </form>
         </div>
