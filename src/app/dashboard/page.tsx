@@ -8,13 +8,21 @@ import { Button } from "../components/ui/Button";
 import { useUserMembership } from "../hooks/useMembership";
 import { useGetNearestLocation } from "../hooks/useAuth";
 import Link from "next/link";
+import { useRouter } from "next/navigation"
 
 export default function pageDashboard() {
+  const router = useRouter()
   const getLocation = useGetNearestLocation();
   const { data } = getLocation;
   const [token, setToken] = useState("");
+  
   useEffect(() => {
-    setToken(localStorage.getItem("access_token") ?? "");
+    const token = localStorage.getItem("access_token");
+  if (!token) {
+    router.replace("/login");
+    return;
+  }
+  setToken(token);
   }, []);
 
   const { data: membership } = useUserMembership(token);
