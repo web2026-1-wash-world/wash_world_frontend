@@ -1,9 +1,11 @@
 "use client"
 
 import { RiErrorWarningFill } from "react-icons/ri";
+import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 import { useForgotPassword } from "../hooks/useAuth"
+import { useResetPassword } from "../hooks/useAuth"
 
 import { Input } from "@/app/components/ui/Input"
 import { Button } from "@/app/components/ui/Button"
@@ -14,7 +16,11 @@ export default function LoginPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        forgotPassword.mutate({ user_email: email});
+        forgotPassword.mutate({ user_email: email}),{onSuccess: (data) => {
+                    localStorage.setItem("access_token", data.access_token)
+                    localStorage.setItem("user", JSON.stringify(data.user))
+                    router.push("/dashboard")
+                }};
     };
 
   return (

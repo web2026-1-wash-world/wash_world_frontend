@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 import { Input } from "@/app/components/ui/Input"
 import { Button } from "@/app/components/ui/Button"
@@ -19,19 +20,27 @@ export default function ResetPassword() {
     const resetKey = params.reset_key;
 
     const resetPassword = useResetPassword();
+    const router = useRouter();
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-        resetPassword.mutate({
-            user_password: password,
-            confirm_password: confirmPassword,
-            reset_key: resetKey,
-        });
-    };
+  resetPassword.mutate(
+    {
+      user_password: password,
+      confirm_password: confirmPassword,
+      reset_key: resetKey,
+    },
+    {
+      onSuccess: (data) => {
+        router.push(`/login?message=${encodeURIComponent(data.message)}`);
+      },
+    }
+  );
+};
 
   return (
     <div className="h-screen overflow-hidden bg-black pt-50">
