@@ -10,8 +10,7 @@ const Map = dynamic(() => import("@/app/components/ui/Map"), {
 });
 
 export default function MapPage() {
-  const { data: locations, isLoading, error } =
-    useGetNearestLocation();
+  const { data: locations, isLoading, error } = useGetNearestLocation();
 
   return (
     <div>
@@ -31,20 +30,16 @@ export default function MapPage() {
         )}
 
         {error && (
-          <p className="text-sm text-red-500">
-            Kunne ikke hente lokationer
-          </p>
+          <p className="text-sm text-red-500">Kunne ikke hente lokationer</p>
         )}
 
-        {locations
-          ?.slice(0, 5)
-          .map((location) => (
-            <LocationCard
-              key={location.station_pk}
-              name={location.name}
-              distance={location.distance}
-            />
-          ))}
+        {locations?.slice(0, 5).map((location) => (
+          <LocationCard
+            key={location.station_pk}
+            name={location.name}
+            distance={location.distance}
+          />
+        ))}
       </div>
     </div>
   );

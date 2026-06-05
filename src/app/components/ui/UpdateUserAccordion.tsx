@@ -4,6 +4,7 @@ import { LuUser, LuChevronDown } from "react-icons/lu";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import { useUpdateUser } from "@/app/hooks/useAuth";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 export function UpdateUserAccordion() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,32 +68,51 @@ export function UpdateUserAccordion() {
 
       {isOpen && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 px-4 pb-4">
-          <Input
-            placeholder="Fornavn"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <Input
-            placeholder="Efternavn"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <Input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+           <Input
+                              type="text"
+                              placeholder="Fornavn"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                          />
+          
+                          {updateUser.isError && updateUser.error.field === "user_first_name" ? (
+                              <div className="flex items-center gap-2">
+                                  <RiErrorWarningFill 
+                                  className="fill-red-600"/>
+                                  <p className="text-(--color-text-secondary)">{updateUser.error.error}</p>
+                              </div>
+                          ) : ""}
+                          <Input
+                              type="text"
+                              placeholder="Efternavn"
+                              value={lastName}
+                              onChange={(e) => setLastName(e.target.value)}
+                          />
+                          {updateUser.isError && updateUser.error.field === "user_last_name" ? (
+                              <div className="flex items-center gap-2">
+                                  <RiErrorWarningFill 
+                                  className="fill-red-600"/>
+                                  <p className="text-(--color-text-secondary)">{updateUser.error.error}</p>
+                              </div>
+                          ) : ""}
+                          <Input
+                              type="email"
+                              placeholder="Email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                          />
+                          {updateUser.isError && updateUser.error.field === "user_email" ? (
+                              <div className="flex items-center gap-2">
+                                  <RiErrorWarningFill 
+                                  className="fill-red-600"/>
+                                  <p className="text-(--color-text-secondary)">{updateUser.error.error}</p>
+                              </div>
+                          ) : ""}
           <Button type="submit" disabled={updateUser.isPending}>
             {updateUser.isPending ? "Gemmer..." : "Gem"}
           </Button>
           {feedback && (
             <p className="text-brand-green text-sm">{feedback}</p>
-          )}
-          {updateUser.isError && (
-            <p className="text-red-500 text-sm">
-              {(updateUser.error as { error?: string })?.error ?? "Fejl"}
-            </p>
           )}
         </form>
       )}
