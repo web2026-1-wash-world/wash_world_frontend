@@ -51,6 +51,7 @@ export default function PlanSelectionPage() {
     setToken(token);
   }, []);
 
+  // Preselect the user's current membership on first load
   useEffect(() => {
     if (currentMembershipId && selectedMembershipId === null) {
       setSelectedMembershipId(currentMembershipId);
