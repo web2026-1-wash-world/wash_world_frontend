@@ -31,8 +31,6 @@ export default function PlanSelectionPage() {
     number | null
   >(null);
 
-  const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
-
   const membership = useUserMembership(token);
   const memberships = useMemberships(token);
 
@@ -56,25 +54,14 @@ export default function PlanSelectionPage() {
       {
         onSuccess: () => {
           membership.refetch();
-          setOpenAccordionId(null);
         },
       },
     );
   }
 
   const [showCancelModal, setShowCancelModal] = useState(false);
-
   const cancelMembership = useCancelMembership(token);
 
-  function handleCancelMembership() {
-    cancelMembership.mutate(undefined, {
-      onSuccess: () => {
-        membership.refetch();
-        setSelectedMembershipId(null);
-        setOpenAccordionId(null);
-      },
-    });
-  }
 
   const selectedMembership = memberships.data?.find(
     (membership) => membership.membership_pk === selectedMembershipId,
@@ -155,20 +142,19 @@ export default function PlanSelectionPage() {
                 onClick={() => {
                   setShowCancelModal(false);
 
-                  cancelMembership.mutate(undefined, {
-                    onSuccess: () => {
-                      membership.refetch();
-                      setSelectedMembershipId(null);
-                      setOpenAccordionId(null);
-                    },
-                  });
-                }}
-              >
-                Ja, opsig
-              </Button>
-            </div>
+                cancelMembership.mutate(undefined, {
+                  onSuccess: () => {
+                    membership.refetch();
+                    setSelectedMembershipId(null);
+                  },
+                });
+              }}
+            >
+              Ja, opsig
+            </Button>
           </div>
         </div>
+      </div>
       )}
     </div>
   );
