@@ -14,10 +14,34 @@ import { BackButton } from "../components/ui/BackButton";
 import { useRouter } from "next/navigation";
 
 export default function PlanSelectionPage() {
-  const router = useRouter()
-  
-  const [token, setToken] = useState("");
+  // Router
+  const router = useRouter();
 
+  // Local state
+  const [token, setToken] = useState("");
+  const [selectedMembershipId, setSelectedMembershipId] = useState<
+    number | null
+  >(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  // Data hooks
+  const membership = useUserMembership(token);
+  const memberships = useMemberships(token);
+
+  // Mutations
+  const subscribe = useSubscribe(token);
+  const cancelMembership = useCancelMembership(token);
+
+  // Derived state
+  const currentMembershipId = membership.data?.membership_pk;
+
+  const selectedMembership = memberships.data?.find(
+    (membership) => membership.membership_pk === selectedMembershipId,
+  );
+
+  const isCurrentPlan = currentMembershipId === selectedMembershipId;
+
+  // Effects
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {
@@ -27,23 +51,13 @@ export default function PlanSelectionPage() {
     setToken(token);
   }, []);
 
-  const [selectedMembershipId, setSelectedMembershipId] = useState<
-    number | null
-  >(null);
-
-  const membership = useUserMembership(token);
-  const memberships = useMemberships(token);
-
-  const currentMembershipId = membership.data?.membership_pk;
-
   useEffect(() => {
     if (currentMembershipId && selectedMembershipId === null) {
       setSelectedMembershipId(currentMembershipId);
     }
   }, [currentMembershipId, selectedMembershipId]);
 
-  const subscribe = useSubscribe(token);
-
+  // Event handlers
   function handleActivate() {
     if (!selectedMembershipId) return;
 
@@ -58,16 +72,6 @@ export default function PlanSelectionPage() {
       },
     );
   }
-
-  const [showCancelModal, setShowCancelModal] = useState(false);
-  const cancelMembership = useCancelMembership(token);
-
-
-  const selectedMembership = memberships.data?.find(
-    (membership) => membership.membership_pk === selectedMembershipId,
-  );
-
-  const isCurrentPlan = currentMembershipId === selectedMembershipId;
 
   return (
     <div className="flex flex-col space-y-4">
