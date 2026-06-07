@@ -17,7 +17,7 @@ export default function AddCarForm({ onSuccess }: AddCarFormProps) {
   const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); /* PRevents browser from reloading on submit (us losing the data weøve submitted) */
+    e.preventDefault(); /* PRevents browser from reloading on submit (us losing the data we've submitted) */
     createCar(
       { car_license_plate: licensePlate, car_brand: brand, car_model: model },
       {

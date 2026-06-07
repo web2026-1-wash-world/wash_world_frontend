@@ -51,12 +51,16 @@ export default function PlanSelectionPage() {
     setToken(token);
   }, []);
 
-  // Preselect the user's current membership on first load
+  // Preselect the user's current membership when membership data is loaded
   useEffect(() => {
+    // Check if:
+    // 1. The user already has a membership (currentMembershipId exists)
+    // 2. No membership has been selected yet
     if (currentMembershipId && selectedMembershipId === null) {
+      // Set the currently active membership as the selected option
       setSelectedMembershipId(currentMembershipId);
     }
-  }, [currentMembershipId, selectedMembershipId]);
+  }, [currentMembershipId, selectedMembershipId]); // Re-run this effect whenever either value changes
 
   // Event handlers
   function handleActivate() {
