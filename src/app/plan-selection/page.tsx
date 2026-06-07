@@ -23,10 +23,6 @@ export default function PlanSelectionPage() {
     number | null
   >(null);
 
-  const [openAccordionId, setOpenAccordionId] = useState<
-    number | null
-  >(null);
-
   const membership = useUserMembership(token);
   const memberships = useMemberships(token);
 
@@ -50,25 +46,14 @@ export default function PlanSelectionPage() {
       {
         onSuccess: () => {
           membership.refetch();
-          setOpenAccordionId(null);
         },
       }
     );
   }
 
   const [showCancelModal, setShowCancelModal] = useState(false);
-
   const cancelMembership = useCancelMembership(token);
 
-  function handleCancelMembership() {
-    cancelMembership.mutate(undefined, {
-      onSuccess: () => {
-        membership.refetch();
-        setSelectedMembershipId(null);
-        setOpenAccordionId(null);
-      },
-    });
-  }
 
   const selectedMembership = memberships.data?.find(
     (membership) => membership.membership_pk === selectedMembershipId
@@ -154,7 +139,6 @@ export default function PlanSelectionPage() {
                   onSuccess: () => {
                     membership.refetch();
                     setSelectedMembershipId(null);
-                    setOpenAccordionId(null);
                   },
                 });
               }}
