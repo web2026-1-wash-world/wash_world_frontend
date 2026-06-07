@@ -7,11 +7,11 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
 export function useCars() {
   const queryClient = useQueryClient();
-  type CreateCarData = {                                                                                                           
-      car_license_plate: string;                                                                                                 
-      car_brand: string;                                                                                                           
-      car_model: string;
-  };    
+  type CreateCarData = {
+    car_license_plate: string;
+    car_brand: string;
+    car_model: string;
+  };
 
   const {
     data: cars = [],
@@ -34,49 +34,55 @@ export function useCars() {
   });
 
   const createMutation = useMutation({
-      mutationFn: async (data: CreateCarData) => {
-          const token = localStorage.getItem("access_token");                                                                      
-          const response = await fetch(baseUrl + "/cars", {
-              method: "POST",
-              headers: {                                                                                                         
-                  "Content-Type": "application/x-www-form-urlencoded",
-                  "Authorization": `Bearer ${token}`,                                                                              
-              },
-              body: new URLSearchParams(data),                                                                          
-          });                                                                                                                    
-          const json = await response.json();
-          if (!response.ok) throw json;                                                                                            
-          return json;
-      },                                                                                                                           
-      onSuccess: () => {                                                                                                         
-          queryClient.invalidateQueries({ queryKey: ["cars"] });
-      },                                                                                                                           
+    mutationFn: async (data: CreateCarData) => {
+      const token = localStorage.getItem("access_token");
+      const response = await fetch(baseUrl + "/cars", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${token}`,
+        },
+        body: new URLSearchParams(data),
+      });
+      const json = await response.json();
+      if (!response.ok) throw json;
+      return json;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cars"] });
+    },
   });
-                                                                                                                                   
-  const createCar = (data: CreateCarData) => createMutation.mutateAsync(data);
+
+  const createCar = createMutation.mutate;
 
   const deleteMutation = useMutation({
-      mutationFn: async (car_pk: number) => {
-          const token = localStorage.getItem("access_token");
-          const response = await fetch(baseUrl + "/cars/" + car_pk, {
-              method: "DELETE",
-              headers: {
-                  "Authorization": `Bearer ${token}`,
-              },
-          });
-          if (!response.ok) {
-              const json = await response.json();
-              throw json;
-          }
-      },
-      onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["cars"] });
-      },
+    mutationFn: async (car_pk: number) => {
+      const token = localStorage.getItem("access_token");
+      const response = await fetch(baseUrl + "/cars/" + car_pk, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        const json = await response.json();
+        throw json;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cars"] });
+    },
   });
 
   const deleteCar = (car_pk: number) => deleteMutation.mutateAsync(car_pk);
 
-  return { cars, isLoading, createCar, isCreating: createMutation.isPending, deleteCar };
-
-
+  return {
+    cars,
+    isLoading,
+    createCar,
+    isCreating: createMutation.isPending,
+    isCreateError: createMutation.isError,
+    createError: createMutation.error as any,
+    deleteCar,
+  };
 }

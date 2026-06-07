@@ -47,8 +47,8 @@ export default function ProfilePage() {
           <CarsSection />
           <Button
             variant="secondary"
-            onClick={() => setShowAddForm((prev) => !prev)}
-          >
+            onClick={() => setShowAddForm((prev) => !prev)} 
+          >{/* toggle - the toggle means the onClick does the opposite of the state. If open, onClick closes it and vice versa */}
             {showAddForm ? "Annuller" : "+ Tilføj bil"}
           </Button>
           {showAddForm && (
